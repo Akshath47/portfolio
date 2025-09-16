@@ -1,103 +1,252 @@
+"use client";
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import "react-vertical-timeline-component/style.min.css";
+import { ModeToggle } from "@/components/mode-toggle";
+
+const VerticalTimeline = dynamic(
+  () =>
+    import("react-vertical-timeline-component").then(
+      (mod) => mod.VerticalTimeline
+    ),
+  { ssr: false }
+);
+
+const VerticalTimelineElement = dynamic(
+  () =>
+    import("react-vertical-timeline-component").then(
+      (mod) => mod.VerticalTimelineElement
+    ),
+  { ssr: false }
+);
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="flex min-h-screen flex-col items-center p-24">
+      <div className="absolute top-4 right-4">
+        <ModeToggle />
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
+          Hi, I’m Akshath
+        </h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          CS student at Imperial College London
+        </p>
+        <div className="mt-6 flex justify-center gap-4">
+          <Button>View Resume</Button>
+          <Button variant="secondary">Contact Me</Button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <div className="mt-8">
+          {/* [UNICON STUDIO COMPONENT] - Placeholder for 3D/animation */}
+          <div className="mx-auto h-64 w-64 rounded-lg bg-muted/50"></div>
+        </div>
+      </div>
+
+      <section id="about" className="mt-12 text-center">
+        <h2 className="text-3xl font-bold tracking-tight">About Me</h2>
+        <p className="mt-4 text-lg text-muted-foreground">
+          I am a Computer Science student at Imperial College London, passionate about building beautiful and functional web applications.
+        </p>
+      </section>
+
+      <section id="experience" className="mt-12 w-full max-w-4xl">
+        <h2 className="text-3xl font-bold tracking-tight text-center">
+          Experience
+        </h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Software Engineering Intern</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Unicorn Studio | Summer 2024
+              </p>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Built and maintained features for the company's flagship design
+                product, focusing on performance and user experience.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Badge>Next.js</Badge>
+                <Badge>TypeScript</Badge>
+                <Badge>Vercel</Badge>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Hackathon Winner</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                HackTheFuture | 2023
+              </p>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Developed a full-stack application in 24 hours that won first
+                place for its innovative use of AI.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Badge variant="secondary">Python</Badge>
+                <Badge variant="secondary">FastAPI</Badge>
+                <Badge variant="secondary">React</Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section id="projects" className="mt-12 w-full max-w-4xl">
+        <h2 className="text-3xl font-bold tracking-tight text-center">
+          Projects
+        </h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <Card>
+            <Image
+              src="/placeholder.svg"
+              alt="Project thumbnail"
+              width={500}
+              height={300}
+              className="rounded-t-lg object-cover"
+            />
+            <CardHeader>
+              <CardTitle>Portfolio Website</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                My personal portfolio, built with Next.js and shadcn/ui.
+              </p>
+              <Accordion type="single" collapsible className="w-full mt-4">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>More Details</AccordionTrigger>
+                  <AccordionContent>
+                    This project showcases my skills in frontend development and
+                    responsive design.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </CardContent>
+          </Card>
+          <Card>
+            <Image
+              src="/placeholder.svg"
+              alt="Project thumbnail"
+              width={500}
+              height={300}
+              className="rounded-t-lg object-cover"
+            />
+            <CardHeader>
+              <CardTitle>AI Chatbot</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                A chatbot powered by the latest in LLM technology.
+              </p>
+              <Accordion type="single" collapsible className="w-full mt-4">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>More Details</AccordionTrigger>
+                  <AccordionContent>
+                    This project explores natural language processing and API
+                    integrations.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section id="skills" className="mt-12 w-full max-w-4xl">
+        <h2 className="text-3xl font-bold tracking-tight text-center">
+          Skills
+        </h2>
+        <div className="mt-6 flex flex-wrap justify-center gap-4">
+          <Badge variant="outline">JavaScript</Badge>
+          <Badge variant="outline">TypeScript</Badge>
+          <Badge variant="outline">Python</Badge>
+          <Badge variant="outline">React</Badge>
+          <Badge variant="outline">Next.js</Badge>
+          <Badge variant="outline">Node.js</Badge>
+          <Badge variant="outline">HTML</Badge>
+          <Badge variant="outline">CSS</Badge>
+          <Badge variant="outline">Git</Badge>
+        </div>
+      </section>
+
+      <section id="achievements" className="mt-12 w-full max-w-4xl">
+        <h2 className="text-3xl font-bold tracking-tight text-center">
+          Achievements
+        </h2>
+        <div className="mt-6">
+          <VerticalTimeline>
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              contentStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+              contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
+              date="2023 - present"
+              iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+            >
+              <h3 className="vertical-timeline-element-title">
+                Dean's List
+              </h3>
+              <h4 className="vertical-timeline-element-subtitle">
+                Imperial College London
+              </h4>
+              <p>
+                Awarded for outstanding academic performance.
+              </p>
+            </VerticalTimelineElement>
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="2023"
+              iconStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
+            >
+              <h3 className="vertical-timeline-element-title">
+                First Class Honours
+              </h3>
+              <h4 className="vertical-timeline-element-subtitle">
+                MEng Computing
+              </h4>
+              <p>
+                Graduated with First Class Honours from Imperial College London.
+              </p>
+            </VerticalTimelineElement>
+          </VerticalTimeline>
+        </div>
+      </section>
+
+      <section id="contact" className="mt-12 w-full max-w-4xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight">Get in Touch</h2>
+        <div className="mt-6 flex justify-center gap-4">
+          <Button asChild>
+            <a href="mailto:akshath@example.com">Email</a>
+          </Button>
+          <Button asChild variant="outline">
+            <a href="https://linkedin.com/in/akshath" target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+          </Button>
+          <Button asChild variant="outline">
+            <a href="https://github.com/akshath" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+          </Button>
+        </div>
+      </section>
+
+      <footer className="mt-12 w-full max-w-4xl text-center">
+        <Separator />
+        <p className="mt-4 text-sm text-muted-foreground">
+          © 2024 Akshath. All rights reserved.
+        </p>
       </footer>
-    </div>
+    </main>
   );
 }
