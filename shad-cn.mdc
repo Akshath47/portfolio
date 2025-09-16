@@ -1,0 +1,18 @@
+---
+description: "Rules for using shadcn/ui components with MCP"
+alwaysApply: false
+---
+
+## Usage Rule
+- When asked to use shadcn components, query the **shadcn-ui MCP server**.
+
+## Planning Rule
+- When planning UI:
+  - Use the MCP server during planning to check available components.
+  - Apply components wherever components are applicable.
+  - Prefer whole blocks when possible (e.g., login page, calendar).
+
+## Implementation Rule
+- Before writing code:
+  - First call the `demo` MCP tool from the `shadcn-ui` server to see how the component is used.
+  - Then implement it with correct imports (`@/components/ui/...`) and JSX.
