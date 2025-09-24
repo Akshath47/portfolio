@@ -9,6 +9,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import "react-vertical-timeline-component/style.min.css";
 import { ModeToggle } from "@/components/mode-toggle";
+import UnicornScene from "unicornstudio-react/next";
 
 const VerticalTimeline = dynamic(
   () =>
@@ -28,12 +29,17 @@ const VerticalTimelineElement = dynamic(
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <div className="absolute top-4 right-4">
+    <main className="flex min-h-screen flex-col">
+      <div className="absolute top-4 right-4 z-10">
         <ModeToggle />
       </div>
 
-      <div className="text-center">
+      <section className="relative w-full h-screen">
+        <UnicornScene projectId="WRA2ea7ojy5q3VLa3E8k" width="100vw" height="100vh" />
+      </section>
+
+      <div className="flex flex-col items-center p-24">
+        <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
           Hi, I’m Akshath
         </h1>
@@ -43,10 +49,6 @@ export default function Home() {
         <div className="mt-6 flex justify-center gap-4">
           <Button>View Resume</Button>
           <Button variant="secondary">Contact Me</Button>
-        </div>
-        <div className="mt-8">
-          {/* [UNICON STUDIO COMPONENT] - Placeholder for 3D/animation */}
-          <div className="mx-auto h-64 w-64 rounded-lg bg-muted/50"></div>
         </div>
       </div>
 
@@ -247,6 +249,7 @@ export default function Home() {
           © 2024 Akshath. All rights reserved.
         </p>
       </footer>
+      </div>
     </main>
   );
 }
