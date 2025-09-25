@@ -120,3 +120,43 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Watermark hiding rules */
+@layer utilities {
+  /* Hide any element containing branding */
+  [class*="watermark"],
+  [id*="watermark"],
+  [class*="logo"],
+  [id*="logo"],
+  [class*="brand"],
+  [id*="brand"],
+  a[href*="unicornstudio"],
+  a[href*="unicorn"],
+  div[style*="position: fixed"],
+  div[style*="position: absolute"][style*="bottom"],
+  div[style*="z-index: 999"],
+  div[style*="z-index: 9999"],
+  div[style*="pointer-events: none"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  div[style*="position: fixed"][style*="bottom: 0"],
+  div[style*="position: fixed"][style*="bottom: 10px"],
+  div[style*="position: fixed"][style*="bottom: 20px"],
+  div[style*="position: absolute"][style*="bottom: 0"],
+  div[style*="position: absolute"][style*="bottom: 10px"],
+  div[style*="position: absolute"][style*="bottom: 20px"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  iframe + div[style*="position: absolute"],
+  canvas + div[style*="position: absolute"] {
+    display: none !important;
+  }
+}
