@@ -1,15 +1,17 @@
 "use client";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
+import { ProjectCarousel } from "@/components/ui/project-carousel";
+import { ExperienceTabs } from "@/components/ui/experience-tabs";
+import { CentralBlackBar } from "@/components/ui/central-black-bar";
+import { ScrollAnimationProvider } from "@/components/ui/scroll-animations";
+import { UnicornStudioScript } from "@/components/unicorn-studio-script";
 import dynamic from "next/dynamic";
 import "react-vertical-timeline-component/style.min.css";
-import { ModeToggle } from "@/components/mode-toggle";
-import UnicornScene from "unicornstudio-react/next";
+
 
 const VerticalTimeline = dynamic(
   () =>
@@ -29,28 +31,32 @@ const VerticalTimelineElement = dynamic(
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen">
-      {/* UnicornScene as full page background */}
-      <div className="fixed inset-0 w-full h-full z-0">
-        <UnicornScene projectId="k7hNr7cWYaAZHKZSB9de" width="100vw" height="100vh" />
-      </div>
+    <ScrollAnimationProvider>
+      <UnicornStudioScript />
+      <main className="relative min-h-screen">
+        {/* Unicorn Studio embed as full page background */}
+        <div className="fixed inset-0 w-full h-full z-0">
+          <div
+            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.1"
+            style={{width: '100vw', height: '100vh'}}
+          ></div>
+        </div>
 
-      {/* Mode toggle positioned above everything */}
-      <div className="absolute top-4 right-4 z-50">
-        <ModeToggle />
-      </div>
+        {/* Central Black Bar - appears after scrolling */}
+        <CentralBlackBar />
 
-      {/* All content overlaid on the UnicornScene background */}
-      <div className="relative z-40">
+        {/* All content overlaid on the UnicornScene background */}
+        <div className="relative z-40">
         {/* Spacer for full hero page - just the UnicornScene */}
         <div className="h-screen"></div>
 
-        {/* Content sections starting one page below */}
-        <div className="min-h-screen">
-          {/* Hero section with black background */}
-          <section className="relative pt-16 pb-16">
-            <div className="container mx-auto px-4">
-              <Card className="max-w-6xl mx-auto bg-black/90 border-gray-800 shadow-2xl">
+        {/* Main Gradient Card - spans all content sections */}
+        <div className="main-gradient-card w-full min-h-screen">
+          <div className="container mx-auto px-4 py-16 max-w-4xl">
+            
+            {/* Hero Section Card - Layered on main gradient card */}
+            <section className="relative mb-24 fade-in-up">
+              <Card className="max-w-6xl mx-auto layered-section-card">
                 <CardContent className="p-16">
                   {/* Main Hero Content */}
                   <div className="text-center mb-12">
@@ -107,118 +113,26 @@ export default function Home() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </section>
+            </section>
 
-          {/* Additional Content Sections with black backgrounds */}
-          <div className="flex flex-col items-center p-24">
-            <section id="experience" className="w-full max-w-6xl mb-16">
+            {/* Experience Section - Layered on main gradient card */}
+            <section id="experience" className="w-full max-w-6xl mx-auto mb-24 fade-in-up stagger-1">
               <h2 className="text-4xl font-bold tracking-tight text-center mb-12 text-white">
                 Experience
               </h2>
-              <div className="grid gap-8 md:grid-cols-2">
-                <Card className="hover:shadow-lg transition-shadow bg-gray-900 border-gray-700">
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white">Software Engineering Intern</CardTitle>
-                    <p className="text-sm text-gray-400">
-                      Unicorn Studio | Summer 2024
-                    </p>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-gray-300">
-                      Built and maintained features for the company's flagship design
-                      product, focusing on performance and user experience.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge className="bg-gray-700 text-gray-200">Next.js</Badge>
-                      <Badge className="bg-gray-700 text-gray-200">TypeScript</Badge>
-                      <Badge className="bg-gray-700 text-gray-200">Vercel</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="hover:shadow-lg transition-shadow bg-gray-900 border-gray-700">
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white">Hackathon Winner</CardTitle>
-                    <p className="text-sm text-gray-400">
-                      HackTheFuture | 2023
-                    </p>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-gray-300">
-                      Developed a full-stack application in 24 hours that won first
-                      place for its innovative use of AI.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary" className="bg-gray-700 text-gray-200">Python</Badge>
-                      <Badge variant="secondary" className="bg-gray-700 text-gray-200">FastAPI</Badge>
-                      <Badge variant="secondary" className="bg-gray-700 text-gray-200">React</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              <ExperienceTabs />
             </section>
 
-            <section id="projects" className="w-full max-w-6xl mb-16">
+            {/* Projects Section - Layered on main gradient card */}
+            <section id="projects" className="w-full max-w-6xl mx-auto mb-24 fade-in-up stagger-2">
               <h2 className="text-4xl font-bold tracking-tight text-center mb-12 text-white">
                 Projects
               </h2>
-              <div className="grid gap-8 md:grid-cols-2">
-                <Card className="hover:shadow-lg transition-shadow bg-gray-900 border-gray-700">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Project thumbnail"
-                    width={500}
-                    height={300}
-                    className="rounded-t-lg object-cover"
-                  />
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white">Portfolio Website</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-gray-300">
-                      My personal portfolio, built with Next.js and shadcn/ui.
-                    </p>
-                    <Accordion type="single" collapsible className="w-full">
-                      <AccordionItem value="item-1" className="border-gray-700">
-                        <AccordionTrigger className="text-gray-300 hover:text-white">More Details</AccordionTrigger>
-                        <AccordionContent className="text-gray-400">
-                          This project showcases my skills in frontend development and
-                          responsive design.
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  </CardContent>
-                </Card>
-                <Card className="hover:shadow-lg transition-shadow bg-gray-900 border-gray-700">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Project thumbnail"
-                    width={500}
-                    height={300}
-                    className="rounded-t-lg object-cover"
-                  />
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white">AI Chatbot</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-gray-300">
-                      A chatbot powered by the latest in LLM technology.
-                    </p>
-                    <Accordion type="single" collapsible className="w-full">
-                      <AccordionItem value="item-1" className="border-gray-700">
-                        <AccordionTrigger className="text-gray-300 hover:text-white">More Details</AccordionTrigger>
-                        <AccordionContent className="text-gray-400">
-                          This project explores natural language processing and API
-                          integrations.
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  </CardContent>
-                </Card>
-              </div>
+              <ProjectCarousel />
             </section>
 
-            <section id="achievements" className="w-full max-w-6xl mb-16">
+            {/* Achievements Section - Layered on main gradient card */}
+            <section id="achievements" className="w-full max-w-6xl mx-auto mb-16 fade-in-up stagger-3">
               <h2 className="text-4xl font-bold tracking-tight text-center mb-12 text-white">
                 Achievements
               </h2>
@@ -226,8 +140,8 @@ export default function Home() {
                 <VerticalTimeline>
                   <VerticalTimelineElement
                     className="vertical-timeline-element--work"
-                    contentStyle={{ background: "rgb(31, 41, 55)", color: "#fff", border: "1px solid rgb(75, 85, 99)" }}
-                    contentArrowStyle={{ borderRight: "7px solid rgb(31, 41, 55)" }}
+                    contentStyle={{ background: "rgba(0, 0, 0, 0.4)", color: "#fff", border: "1px solid rgba(75, 85, 99, 0.3)", backdropFilter: "blur(4px)" }}
+                    contentArrowStyle={{ borderRight: "7px solid rgba(0, 0, 0, 0.4)" }}
                     date="2023 - present"
                     iconStyle={{ background: "rgb(59, 130, 246)", color: "#fff" }}
                   >
@@ -243,8 +157,8 @@ export default function Home() {
                   </VerticalTimelineElement>
                   <VerticalTimelineElement
                     className="vertical-timeline-element--work"
-                    contentStyle={{ background: "rgb(31, 41, 55)", color: "#fff", border: "1px solid rgb(75, 85, 99)" }}
-                    contentArrowStyle={{ borderRight: "7px solid rgb(31, 41, 55)" }}
+                    contentStyle={{ background: "rgba(0, 0, 0, 0.4)", color: "#fff", border: "1px solid rgba(75, 85, 99, 0.3)", backdropFilter: "blur(4px)" }}
+                    contentArrowStyle={{ borderRight: "7px solid rgba(0, 0, 0, 0.4)" }}
                     date="2023"
                     iconStyle={{ background: "rgb(236, 72, 153)", color: "#fff" }}
                   >
@@ -262,15 +176,18 @@ export default function Home() {
               </div>
             </section>
 
-            <footer className="w-full max-w-6xl text-center">
+            {/* Footer */}
+            <footer className="w-full max-w-6xl mx-auto text-center fade-in-up stagger-4">
               <Separator className="mb-8 bg-gray-700" />
               <p className="text-sm text-gray-400">
                 © 2024 Akshath. All rights reserved.
               </p>
             </footer>
+
           </div>
         </div>
       </div>
     </main>
+    </ScrollAnimationProvider>
   );
 }
