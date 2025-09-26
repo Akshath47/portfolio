@@ -37,8 +37,8 @@ export default function Home() {
         {/* Unicorn Studio embed as full page background */}
         <div className="fixed inset-0 w-full h-full z-0">
           <div
-            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.6"
-            style={{width: '100vw', height: '100vh'}}
+            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.9"
+            style={{width: '100vw', height: '110vh'}}
           ></div>
         </div>
 
