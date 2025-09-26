@@ -37,7 +37,7 @@ export default function Home() {
         {/* Unicorn Studio embed as full page background */}
         <div className="fixed inset-0 w-full h-full z-0">
           <div
-            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.1"
+            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.6"
             style={{width: '100vw', height: '100vh'}}
           ></div>
         </div>
@@ -60,15 +60,40 @@ export default function Home() {
                 <CardContent className="p-16">
                   {/* Main Hero Content */}
                   <div className="text-center mb-12">
-                    <p className="text-2xl text-gray-300 mb-8">
-                      CS student at Imperial College London
-                    </p>
-                    <p className="text-lg text-gray-400 mb-8 max-w-3xl mx-auto">
+                    <p className="text-lg text-white mb-8 max-w-3xl mx-auto">
                       I am a Computer Science student at Imperial College London, passionate about building beautiful and functional web applications.
                     </p>
-                    <div className="flex justify-center gap-4 mb-12">
-                      <Button size="lg" className="px-8 bg-white text-black hover:bg-gray-200">View Resume</Button>
-                      <Button variant="outline" size="lg" className="px-8 border-gray-600 text-white hover:bg-gray-800">Contact Me</Button>
+                  </div>
+
+                  <Separator className="mb-12 bg-gray-700" />
+
+                  {/* Contact Section */}
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl font-bold tracking-tight mb-8 text-white">Get in Touch</h2>
+                    <div className="flex justify-center gap-4">
+                      <Button size="lg" className="cta-button px-12 py-6 text-xl" asChild>
+                        <a href="mailto:akshath@example.com">Contact Me</a>
+                      </Button>
+                    </div>
+                  </div>
+
+                  <Separator className="mb-12 bg-gray-700" />
+
+                  {/* Profiles Section */}
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl font-bold tracking-tight mb-8 text-white">Profile</h2>
+                    <div className="flex justify-center gap-4">
+                      <Button className="secondary-button">Resume</Button>
+                      <Button asChild className="secondary-button">
+                        <a href="https://linkedin.com/in/akshath" target="_blank" rel="noopener noreferrer">
+                          LinkedIn
+                        </a>
+                      </Button>
+                      <Button asChild className="secondary-button">
+                        <a href="https://github.com/akshath" target="_blank" rel="noopener noreferrer">
+                          GitHub
+                        </a>
+                      </Button>
                     </div>
                   </div>
 
@@ -78,37 +103,15 @@ export default function Home() {
                   <div className="mb-12">
                     <h2 className="text-3xl font-bold tracking-tight text-center mb-8 text-white">Skills</h2>
                     <div className="flex flex-wrap justify-center gap-3">
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">JavaScript</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">TypeScript</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">Python</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">React</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">Next.js</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">Node.js</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">HTML</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">CSS</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-gray-600 text-gray-300">Git</Badge>
-                    </div>
-                  </div>
-
-                  <Separator className="mb-12 bg-gray-700" />
-
-                  {/* Contact Section */}
-                  <div className="text-center">
-                    <h2 className="text-3xl font-bold tracking-tight mb-8 text-white">Get in Touch</h2>
-                    <div className="flex justify-center gap-4">
-                      <Button asChild className="bg-white text-black hover:bg-gray-200">
-                        <a href="mailto:akshath@example.com">Email</a>
-                      </Button>
-                      <Button asChild variant="outline" className="border-gray-600 text-white hover:bg-gray-800">
-                        <a href="https://linkedin.com/in/akshath" target="_blank" rel="noopener noreferrer">
-                          LinkedIn
-                        </a>
-                      </Button>
-                      <Button asChild variant="outline" className="border-gray-600 text-white hover:bg-gray-800">
-                        <a href="https://github.com/akshath" target="_blank" rel="noopener noreferrer">
-                          GitHub
-                        </a>
-                      </Button>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">JavaScript</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">TypeScript</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Python</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">React</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Next.js</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Node.js</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">HTML</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">CSS</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Git</Badge>
                     </div>
                   </div>
                 </CardContent>

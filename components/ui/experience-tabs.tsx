@@ -91,9 +91,10 @@ export function ExperienceTabs() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {experience.technologies.map((tech) => (
-                    <Badge 
-                      key={tech} 
-                      className="bg-gray-700 text-gray-200 hover:bg-gray-600"
+                    <Badge
+                      key={tech}
+                      variant="outline"
+                      className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300"
                     >
                       {tech}
                     </Badge>
