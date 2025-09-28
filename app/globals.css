@@ -267,35 +267,57 @@
       0 0 20px oklch(0.65 0.26 340 / 0.3);
   }
 
-  .project-carousel {
+  .project-carousel-container {
     display: flex;
     gap: 2rem;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     padding: 2rem 0;
+    min-height: 500px;
   }
 
-  .project-card {
+  .project-carousel-track {
+    width: 1200px;
+    height: 400px;
+    overflow: visible;
+    position: relative;
+    padding: 20px 0;
+  }
+
+  .project-carousel-inner {
+    display: flex;
+    gap: 2rem;
+    width: fit-content;
+  }
+
+  .project-card-continuous {
     flex: 0 0 300px;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     transform-origin: center;
   }
 
-  .project-card.side {
-    transform: scale(0.8);
-    opacity: 0.7;
+  .project-card-continuous:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+      0 15px 35px -5px rgba(0, 0, 0, 0.4),
+      0 0 25px oklch(0.65 0.26 340 / 0.4);
   }
 
-  .project-card.center {
-    transform: scale(1);
-    opacity: 1;
+  .project-card-infinite {
+    flex: 0 0 300px;
+    margin-right: 20px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform-origin: center;
+  }
+
+  .project-card-infinite:hover {
+    transform: translateY(-8px) scale(1.05) !important;
+    box-shadow:
+      0 15px 35px -5px rgba(0, 0, 0, 0.4),
+      0 0 25px oklch(0.65 0.26 340 / 0.4);
     z-index: 10;
-  }
-
-  .project-card.hidden {
-    transform: scale(0.6);
-    opacity: 0.3;
+    position: relative;
   }
 
   .carousel-controls {
@@ -407,18 +429,22 @@
       );
     }
 
-    .project-carousel {
+    .project-carousel-container {
       flex-direction: column;
       gap: 1rem;
     }
 
-    .project-card {
-      flex: 0 0 280px;
+    .project-carousel-track {
+      width: 350px;
+      height: 400px;
     }
 
-    .project-card.side {
-      transform: scale(0.95);
-      opacity: 0.8;
+    .project-carousel-inner {
+      gap: 1.5rem;
+    }
+
+    .project-card-continuous {
+      flex: 0 0 280px;
     }
 
     .experience-tabs {
@@ -456,11 +482,20 @@
       );
     }
 
-    .project-carousel {
+    .project-carousel-container {
       padding: 1rem 0;
     }
 
-    .project-card {
+    .project-carousel-track {
+      width: 300px;
+      height: 380px;
+    }
+
+    .project-carousel-inner {
+      gap: 1rem;
+    }
+
+    .project-card-continuous {
       flex: 0 0 260px;
     }
 
