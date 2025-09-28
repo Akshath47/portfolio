@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ProjectCarousel } from "@/components/ui/project-carousel";
 import { ExperienceTabs } from "@/components/ui/experience-tabs";
+import { JourneyTimeline } from "@/components/ui/journey-timeline";
 import { CentralBlackBar } from "@/components/ui/central-black-bar";
 import { ScrollAnimationProvider } from "@/components/ui/scroll-animations";
 import { UnicornStudioScript } from "@/components/unicorn-studio-script";
@@ -134,48 +135,13 @@ export default function Home() {
               <ProjectCarousel />
             </section>
 
-            {/* Achievements Section - Layered on main gradient card */}
-            <section id="achievements" className="w-full max-w-6xl mx-auto mb-16 fade-in-up stagger-3">
+            {/* Journey Section - Layered on main gradient card */}
+            <section id="journey" className="w-full max-w-6xl mx-auto mb-16 fade-in-up stagger-3">
               <h2 className="text-4xl font-bold tracking-tight text-center mb-12 text-white">
-                Achievements
+                Journey
               </h2>
               <div className="mt-6">
-                <VerticalTimeline>
-                  <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
-                    contentStyle={{ background: "rgba(0, 0, 0, 0.4)", color: "#fff", border: "1px solid rgba(75, 85, 99, 0.3)", backdropFilter: "blur(4px)" }}
-                    contentArrowStyle={{ borderRight: "7px solid rgba(0, 0, 0, 0.4)" }}
-                    date="2023 - present"
-                    iconStyle={{ background: "rgb(59, 130, 246)", color: "#fff" }}
-                  >
-                    <h3 className="vertical-timeline-element-title text-white">
-                      Dean's List
-                    </h3>
-                    <h4 className="vertical-timeline-element-subtitle text-gray-300">
-                      Imperial College London
-                    </h4>
-                    <p className="text-gray-300">
-                      Awarded for outstanding academic performance.
-                    </p>
-                  </VerticalTimelineElement>
-                  <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
-                    contentStyle={{ background: "rgba(0, 0, 0, 0.4)", color: "#fff", border: "1px solid rgba(75, 85, 99, 0.3)", backdropFilter: "blur(4px)" }}
-                    contentArrowStyle={{ borderRight: "7px solid rgba(0, 0, 0, 0.4)" }}
-                    date="2023"
-                    iconStyle={{ background: "rgb(236, 72, 153)", color: "#fff" }}
-                  >
-                    <h3 className="vertical-timeline-element-title text-white">
-                      First Class Honours
-                    </h3>
-                    <h4 className="vertical-timeline-element-subtitle text-gray-300">
-                      MEng Computing
-                    </h4>
-                    <p className="text-gray-300">
-                      Graduated with First Class Honours from Imperial College London.
-                    </p>
-                  </VerticalTimelineElement>
-                </VerticalTimeline>
+                <JourneyTimeline />
               </div>
             </section>
 
