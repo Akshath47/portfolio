@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useRef } from "react";
 
 interface JourneyEntry {
   id: string;
@@ -76,6 +77,40 @@ const typeLabels = {
 };
 
 export function JourneyTimeline() {
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    itemRefs.current.forEach((ref, index) => {
+      if (ref) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Animate this specific item when it comes into view
+                entry.target.classList.add('timeline-visible');
+                // Disconnect this observer since we only need to animate once
+                observer.disconnect();
+              }
+            });
+          },
+          {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+          }
+        );
+
+        observer.observe(ref);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach(observer => observer.disconnect());
+    };
+  }, []);
+
   return (
     <div className="relative max-w-6xl mx-auto">
       {/* Central Timeline line */}
@@ -85,7 +120,13 @@ export function JourneyTimeline() {
         {journeyEntries.map((entry, index) => {
           const isEven = index % 2 === 0;
           return (
-            <div key={entry.id} className="relative flex items-center justify-center mb-20 group">
+            <div
+              key={entry.id}
+              ref={(el) => {
+                itemRefs.current[index] = el;
+              }}
+              className="relative flex items-center justify-center mb-20 group timeline-item opacity-0 translate-y-8 transition-all duration-700 ease-out"
+            >
               {/* Left side content (even indices) */}
               {isEven && (
                 <>

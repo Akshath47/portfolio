@@ -287,7 +287,7 @@
 
   .project-carousel-inner {
     display: flex;
-    gap: 2rem;
+    gap: 20px;
     width: fit-content;
   }
 
@@ -306,7 +306,6 @@
 
   .project-card-infinite {
     flex: 0 0 300px;
-    margin-right: 20px;
     transition: opacity 0.3s ease, transform 0.3s ease;
     transform-origin: center;
   }
@@ -412,6 +411,18 @@
   .stagger-2 { transition-delay: 0.2s; }
   .stagger-3 { transition-delay: 0.3s; }
   .stagger-4 { transition-delay: 0.4s; }
+
+  /* Timeline animations */
+  .timeline-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease-out;
+  }
+
+  .timeline-item.timeline-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive Design */
@@ -440,7 +451,7 @@
     }
 
     .project-carousel-inner {
-      gap: 1.5rem;
+      gap: 20px;
     }
 
     .project-card-continuous {
@@ -492,7 +503,7 @@
     }
 
     .project-carousel-inner {
-      gap: 1rem;
+      gap: 20px;
     }
 
     .project-card-continuous {

@@ -51,28 +51,26 @@ export function ProjectCarousel() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
 
-  // Card width + gap
-  const cardWidth = 320; // 300px card + 20px gap
-  const totalWidth = projects.length * cardWidth;
+  // Dynamically measured spacing between consecutive cards (in px)
+  const [step, setStep] = useState(320);
+  const [loopWidth, setLoopWidth] = useState(projects.length * 320);
+  const loggedMeasurementRef = useRef(false);
 
   useEffect(() => {
     if (!isAnimating) return;
 
     const animate = () => {
       setTranslateX(prev => {
-        const newTranslateX = prev - 1;
-        
-        // Reset at the exact moment when we've scrolled exactly one full set
-        // This ensures the reset happens when identical content is perfectly aligned
-        if (newTranslateX <= -totalWidth) {
-          return 0; // Reset to start position
+        const next = prev - 1;
+        if (next <= -loopWidth) {
+          const wrapped = next + loopWidth;
+          return wrapped;
         }
-        
-        return newTranslateX;
+        return next;
       });
-      
       animationRef.current = requestAnimationFrame(animate);
     };
 
@@ -83,17 +81,50 @@ export function ProjectCarousel() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isAnimating, totalWidth]);
+  }, [isAnimating, loopWidth]);
+
+  // Measure step and loop width from DOM
+  useEffect(() => {
+    const measure = () => {
+      const inner = innerRef.current;
+      if (!inner) return;
+      const cards = Array.from(inner.querySelectorAll('.project-card-infinite')) as HTMLElement[];
+      if (cards.length >= 2) {
+        const r1 = cards[0].getBoundingClientRect();
+        const r2 = cards[1].getBoundingClientRect();
+        const measuredStep = r2.left - r1.left;
+        const cs = getComputedStyle(inner);
+        const gapStr = (cs as any).columnGap || (cs as any).gap || '0px';
+        const gap = parseFloat(gapStr);
+        const measuredWidth = cards[0].getBoundingClientRect().width;
+        const computedLoopWidth = measuredStep * projects.length;
+        setStep(measuredStep);
+        setLoopWidth(computedLoopWidth);
+        if (!loggedMeasurementRef.current) {
+          console.debug('[ProjectCarousel] measure', {
+            measuredWidth: Math.round(measuredWidth * 100) / 100,
+            gap,
+            measuredStep: Math.round(measuredStep * 100) / 100,
+            loopWidth: Math.round(computedLoopWidth * 100) / 100,
+            count: projects.length
+          });
+          loggedMeasurementRef.current = true;
+        }
+      }
+    };
+    // measure after paint to ensure layout is ready
+    requestAnimationFrame(measure);
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   // Create exactly 2 copies - one visible, one ready to replace
   const infiniteProjects = [...projects, ...projects];
 
   // Calculate which card is currently in the center for dot indicators
   const getCenterIndex = () => {
-    const containerCenter = 600; // Half of 1200px container width
-    const adjustedTranslateX = Math.abs(translateX) % totalWidth;
-    // Calculate which project is closest to center based on scroll position
-    return Math.round(adjustedTranslateX / cardWidth) % projects.length;
+    const adjusted = Math.abs(translateX) % loopWidth;
+    return Math.round(adjusted / step) % projects.length;
   };
 
   const centerIndex = getCenterIndex();
@@ -113,6 +144,7 @@ export function ProjectCarousel() {
         <div className="project-carousel-track" ref={containerRef}>
           <div
             className="project-carousel-inner"
+            ref={innerRef}
             style={{
               transform: `translateX(${translateX}px)`,
               transition: 'none'
@@ -146,9 +178,9 @@ export function ProjectCarousel() {
                     </div>
                   </CardContent>
                 </Card>
-                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto layered-section-card bg-[rgba(0,0,0,0.7)] border-[oklch(0.65_0.26_340/0.8)]">
                   <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold">{project.title}</DialogTitle>
+                    <DialogTitle className="text-2xl font-bold text-white">{project.title}</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-6">
                     <Image
@@ -160,23 +192,23 @@ export function ProjectCarousel() {
                     />
                     <div className="space-y-4">
                       <div>
-                        <h3 className="text-lg font-semibold mb-2">Description</h3>
-                        <p className="text-gray-600 dark:text-gray-300">{project.description}</p>
+                        <h3 className="text-lg font-semibold mb-2 text-white">Description</h3>
+                        <p className="text-gray-300">{project.description}</p>
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold mb-2">Details</h3>
-                        <p className="text-gray-600 dark:text-gray-300">{project.details}</p>
+                        <h3 className="text-lg font-semibold mb-2 text-white">Details</h3>
+                        <p className="text-gray-300">{project.details}</p>
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold mb-2">Technologies</h3>
+                        <h3 className="text-lg font-semibold mb-2 text-white">Technologies</h3>
                         <div className="flex flex-wrap gap-2">
-                          <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+                          <span className="px-3 py-1 bg-[oklch(0.70_0.18_190/0.15)] text-[oklch(0.70_0.18_190)] border border-[oklch(0.70_0.18_190/0.4)] rounded-full text-sm hover:bg-[oklch(0.70_0.18_190/0.25)] transition-all duration-300 hover:scale-105">
                             React
                           </span>
-                          <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm">
+                          <span className="px-3 py-1 bg-[oklch(0.65_0.26_340/0.15)] text-[oklch(0.65_0.26_340)] border border-[oklch(0.65_0.26_340/0.4)] rounded-full text-sm hover:bg-[oklch(0.65_0.26_340/0.25)] transition-all duration-300 hover:scale-105">
                             Next.js
                           </span>
-                          <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm">
+                          <span className="px-3 py-1 bg-[oklch(0.55_0.22_290/0.15)] text-[oklch(0.55_0.22_290)] border border-[oklch(0.55_0.22_290/0.4)] rounded-full text-sm hover:bg-[oklch(0.55_0.22_290/0.25)] transition-all duration-300 hover:scale-105">
                             TypeScript
                           </span>
                         </div>
@@ -197,7 +229,7 @@ export function ProjectCarousel() {
             className={`carousel-dot ${index === centerIndex ? 'active' : ''}`}
             onClick={() => {
               // Optional: Allow clicking dots to jump to specific project
-              const targetTranslateX = -(index * cardWidth);
+              const targetTranslateX = -(index * step);
               setTranslateX(targetTranslateX);
             }}
           />
