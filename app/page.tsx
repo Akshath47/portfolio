@@ -64,7 +64,7 @@ export default function Home() {
             {/* Hero Section Card - Layered on main gradient card */}
             <section className="relative mb-24 fade-in-up">
               <Card className="max-w-6xl mx-auto layered-section-card">
-                <CardContent className="p-16">
+                <CardContent className="pt-12 pr-12 pb-2 pl-12">
                   {/* Main Hero Content */}
                   <div className="text-center mb-12">
                     <p className="text-lg text-white mb-8 max-w-3xl mx-auto">
@@ -72,12 +72,12 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <Separator className="mb-12 bg-gray-700" />
+                  <Separator className="mb-8 bg-gray-700" />
 
                   {/* Contact Section */}
-                  <div className="text-center mb-12">
+                  <div className="text-center mb-8">
                     {/* Prominent email address display */}
-                    <div className="mb-8">
+                    <div className="mb-6">
                       <p className="text-2xl font-medium text-white mb-2">Email</p>
                       <p className="text-xl text-gray-300 font-mono">akshathyennam@gmail.com</p>
                     </div>
@@ -90,31 +90,35 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <Separator className="mb-12 bg-gray-700" />
+                  <Separator className="mb-8 bg-gray-700" />
 
                   {/* Profiles Section */}
-                  <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold tracking-tight mb-8 text-white">Profile</h2>
+                  <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold tracking-tight mb-6 text-white">Profile</h2>
                     <div className="flex justify-center gap-4">
-                      <Button className="secondary-button">Resume</Button>
                       <Button asChild className="secondary-button">
-                        <a href="https://linkedin.com/in/akshath" target="_blank" rel="noopener noreferrer">
+                        <a href="/Akshath_Yennam_CV.pdf" target="_blank" rel="noopener noreferrer">
+                          Resume
+                        </a>
+                      </Button>
+                      <Button asChild className="secondary-button">
+                        <a href="https://www.linkedin.com/in/akshathyennam/" target="_blank" rel="noopener noreferrer">
                           LinkedIn
                         </a>
                       </Button>
                       <Button asChild className="secondary-button">
-                        <a href="https://github.com/akshath" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/Akshath47" target="_blank" rel="noopener noreferrer">
                           GitHub
                         </a>
                       </Button>
                     </div>
                   </div>
 
-                  <Separator className="mb-12 bg-gray-700" />
+                  <Separator className="mb-8 bg-gray-700" />
 
                   {/* Skills Section */}
-                  <div className="mb-12">
-                    <h2 className="text-3xl font-bold tracking-tight text-center mb-8 text-white">Skills</h2>
+                  <div className="mb-8">
+                    <h2 className="text-3xl font-bold tracking-tight text-center mb-6 text-white">Skills</h2>
                     <div className="flex flex-wrap justify-center gap-3">
                       <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">JavaScript</Badge>
                       <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">TypeScript</Badge>
