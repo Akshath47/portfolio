@@ -68,7 +68,7 @@ export default function Home() {
                   {/* Main Hero Content */}
                   <div className="text-center mb-12">
                     <p className="text-lg text-white mb-8 max-w-3xl mx-auto">
-                      I am a Computer Science student at Imperial College London, passionate about building beautiful and functional web applications.
+                      Passionate about learning, building, and exploring the possibilities of technology. I enjoy taking on challenges that help me grow, and I'm always looking for ways to connect ideas with impact.
                     </p>
                   </div>
 
@@ -120,15 +120,16 @@ export default function Home() {
                   <div className="mb-8">
                     <h2 className="text-3xl font-bold tracking-tight text-center mb-6 text-white">Skills</h2>
                     <div className="flex flex-wrap justify-center gap-3">
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">JavaScript</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">TypeScript</Badge>
                       <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Python</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">React</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Next.js</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Node.js</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">HTML</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">CSS</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Git</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">JavaScript</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Kotlin</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Java</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">C</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">RAG</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">LangGraph</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Agentic AI Systems</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Speech-to-Speech AI</Badge>
+                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">GPT-Realtime</Badge>
                     </div>
                   </div>
                 </CardContent>
