@@ -135,7 +135,7 @@ export default function Home() {
 
             {/* Projects Section - Layered on main gradient card */}
             <section id="projects" className="w-full max-w-6xl mx-auto mb-24 fade-in-up stagger-2">
-              <h2 className="text-4xl font-bold tracking-tight text-center mb-6 text-white">
+              <h2 className="text-4xl font-bold tracking-tight text-center text-white">
                 Projects
               </h2>
               <ProjectCarousel />
