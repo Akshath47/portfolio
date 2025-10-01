@@ -76,10 +76,16 @@ export default function Home() {
 
                   {/* Contact Section */}
                   <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold tracking-tight mb-8 text-white">Get in Touch</h2>
+                    {/* Prominent email address display */}
+                    <div className="mb-8">
+                      <p className="text-2xl font-medium text-white mb-2">Email</p>
+                      <p className="text-xl text-gray-300 font-mono">akshathyennam@gmail.com</p>
+                    </div>
+
+                    {/* Secondary contact button */}
                     <div className="flex justify-center gap-4">
-                      <Button size="lg" className="cta-button px-12 py-6 text-xl" asChild>
-                        <a href="mailto:akshath@example.com">Contact Me</a>
+                      <Button size="default" className="secondary-button px-8 py-3" asChild>
+                        <a href="mailto:akshathyennam@gmail.com" target="_blank" rel="noopener noreferrer">Contact Me</a>
                       </Button>
                     </div>
                   </div>
