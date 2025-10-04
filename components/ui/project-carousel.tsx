@@ -12,36 +12,41 @@ interface Project {
   description: string;
   image: string;
   details: string;
+  technologies: string[];
 }
 
 const projects: Project[] = [
   {
     id: "1",
-    title: "Portfolio Website",
-    description: "My personal portfolio, built with Next.js and shadcn/ui.",
-    image: "/placeholder.svg",
-    details: "This project showcases my skills in frontend development and responsive design."
+    title: "Deep Research Agent",
+    description: "An AI agent that autonomously researches topics using web scraping and LLMs.",
+    image: "/img_deep_research.png",
+    details: "",
+    technologies: ["Langgraph", "OpenAI API", "Python", "Agentic AI Workflows", "Web Scraping"]
   },
   {
     id: "2",
-    title: "AI Chatbot",
-    description: "A chatbot powered by the latest in LLM technology.",
-    image: "/placeholder.svg",
-    details: "This project explores natural language processing and API integrations."
+    title: "Emulator & Assembler with Audio Synth Extension",
+    description: "A group project involving an emulator and assembler built from scratch, with an audio synthesizer extension.",
+    image: "/img_audio_synth.png",
+    details: "",
+    technologies: ["C", "Low-level Systems Programming", "x86 Assembly", "Audio Synthesis"]
   },
   {
     id: "3",
-    title: "E-commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration.",
-    image: "/placeholder.svg",
-    details: "Built with React, Node.js, and Stripe for secure payments."
+    title: "Summit - AI companion for planning & focus",
+    description: "An AI-powered companion designed to assist with planning and maintaining focus.",
+    image: "/img_summit.png",
+    details: "",
+    technologies: ["Langgraph", "OpenAI API", "Python", "Agentic AI Workflows"]
   },
   {
     id: "4",
-    title: "Task Management App",
-    description: "Collaborative task management with real-time updates.",
-    image: "/placeholder.svg",
-    details: "Features real-time collaboration using WebSockets and React."
+    title: "Stock Price Predictor",
+    description: "A machine learning project that predicts stock prices using historical data.",
+    image: "/img_stock_predictor.png",
+    details: "",
+    technologies: ["TensorFlow", "Pandas", "NumPy", "Scikit-learn", "Matplotlib", "Python"]
   }
 ];
 
@@ -202,15 +207,14 @@ export function ProjectCarousel() {
                       <div>
                         <h3 className="text-lg font-semibold mb-2 text-white">Technologies</h3>
                         <div className="flex flex-wrap gap-2">
-                          <span className="px-3 py-1 bg-[oklch(0.70_0.18_190/0.15)] text-[oklch(0.70_0.18_190)] border border-[oklch(0.70_0.18_190/0.4)] rounded-full text-sm hover:bg-[oklch(0.70_0.18_190/0.25)] transition-all duration-300 hover:scale-105">
-                            React
-                          </span>
-                          <span className="px-3 py-1 bg-[oklch(0.65_0.26_340/0.15)] text-[oklch(0.65_0.26_340)] border border-[oklch(0.65_0.26_340/0.4)] rounded-full text-sm hover:bg-[oklch(0.65_0.26_340/0.25)] transition-all duration-300 hover:scale-105">
-                            Next.js
-                          </span>
-                          <span className="px-3 py-1 bg-[oklch(0.55_0.22_290/0.15)] text-[oklch(0.55_0.22_290)] border border-[oklch(0.55_0.22_290/0.4)] rounded-full text-sm hover:bg-[oklch(0.55_0.22_290/0.25)] transition-all duration-300 hover:scale-105">
-                            TypeScript
-                          </span>
+                          {selectedProject?.technologies.map((tech, index) => (
+                            <span
+                              key={index}
+                              className="px-3 py-1 bg-[oklch(0.70_0.18_190/0.15)] text-[oklch(0.70_0.18_190)] border border-[oklch(0.70_0.18_190/0.4)] rounded-full text-sm hover:bg-[oklch(0.70_0.18_190/0.25)] transition-all duration-300 hover:scale-105"
+                            >
+                              {tech}
+                            </span>
+                          ))}
                         </div>
                       </div>
                     </div>
