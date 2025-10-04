@@ -27,11 +27,19 @@ const experiences: Experience[] = [
     company: "ValueLabs",
     period: "Jul 2025 – Sep 2025",
     description: (
-      <div className="space-y-2">
-        <p>• Redesigned and optimized a JD-to-resume semantic search system with Qdrant vector DB, improving accuracy and cutting response times from 90s to 6s</p>
-        <p>• Developed a GPT-Realtime based voice interviewer using a multi-agent architecture to manage phase-by-phase control and context-aware handoffs</p>
-        <p>• Implemented real-time speech pipelines for the interviewer, integrating low-latency transcription, response generation, and text-to-speech with prompt guardrails to ensure relevance, tone control, and reduced hallucinations</p>
-        <p>• Built a sales meeting assistant with a hybrid RAG pipeline, enhancing retrieval via multi-query rewriting, RRF scoring, and contextual memory</p>
+      <div className="space-y-3">
+        <p>Gained experience in real-time AI pipelines, vector databases, agentic frameworks, hybrid retrieval, and collaborative problem-solving</p>
+
+        <p>• Reworked a JD-to-resume semantic search system using vector embeddings and the Qdrant vector database, improving both accuracy and scalability</p>
+        <p>• Optimized query efficiency through caching and search parameter tuning, reducing response times from ~90s to ~6s</p>
+        <br />
+
+        <p>• Built a real-time voice interviewer on GPT-Realtime with a multi-agent architecture for phase-by-phase control and context-aware handoffs</p>
+        <p>• Implemented prompt engineering and guardrails to ensure relevance, tone control, and reduce hallucinations in live interview settings</p>
+        <br />
+
+        <p>• Built a sales meeting assistant powered by a hybrid RAG pipeline combining Qdrant and keyword search</p>
+        <p>• Improved retrieval quality with multi-query rewriting and RRF scoring, while supporting contextual memory and entity tracking</p>
       </div>
     ),
     technologies: ["Qdrant", "GPT-Realtime", "RAG", "Multi-Agent Systems", "Speech-to-Speech AI", "Vector DB"]
@@ -49,7 +57,16 @@ const experiences: Experience[] = [
     title: "Intern",
     company: "ValueLabs",
     period: "Jul 2023 – Aug 2023",
-    description: "Gained foundational experience in machine learning through regression, clustering, and natural language processing with transformers. Built sentiment analysis and text classification models, and developed an image classifier using CNNs. Explored computer vision concepts and neural network architectures at a high level.",
+    description: (
+      <div className="space-y-2">
+        <p>• Was introduced to the field of machine learning.</p>
+        <p>• Worked on various different basic regression and clustering models.</p>
+        <p>• Was introduced to transformers and dived into the field of natural language processing.</p>
+        <p>• Worked on a sentiment analysis project and a text classification project with unlabelled data.</p>
+        <p>• Briefly explored computer vision at a high level, learning how convolutional neural networks work.</p>
+        <p>• Worked on an image classifier using a CNN.</p>
+      </div>
+    ),
     technologies: ["Python", "Machine Learning", "CNN", "Transformers", "Computer Vision"]
   }
 ];
@@ -106,7 +123,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
       </Card>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-black/90 backdrop-blur-sm border-primary/20">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-black/90 backdrop-blur-sm border-primary/20 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full">
           <DialogHeader>
             <DialogTitle className="text-2xl text-white mb-2">
               {experience.title}
