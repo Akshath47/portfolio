@@ -17,49 +17,59 @@ interface JourneyEntry {
 
 const journeyEntries: JourneyEntry[] = [
   {
-    id: "deans-list",
-    title: "Dean's List",
-    organization: "Imperial College London",
-    period: "2023 - present",
-    description: "Awarded for outstanding academic performance and maintaining exceptional grades throughout the academic year.",
-    type: "achievement"
+    id: "internship-2",
+    title: "Applied AI Engineering Intern",
+    organization: "Valuelabs",
+    period: "Summer 2025",
+    description: "I built AI systems that could think and respond in real time. Designing RAG pipelines and agentic workflows helped me understand how coordination brings ideas to life.",
+    // technologies: ["Qdrant", "GPT-Realtime", "RAG", "Multi-Agent Systems", "Speech-to-Speech AI", "Vector DB"],
+    type: "work"
   },
   {
     id: "first-class",
     title: "First Class Honours",
-    organization: "MEng Computing",
-    period: "2023",
-    description: "Graduated with First Class Honours from Imperial College London, demonstrating excellence in computer science and engineering.",
-    technologies: ["Python", "Java", "C++", "Machine Learning"],
-    type: "education"
+    organization: "Imperial College London",
+    period: "July 2025",
+    description: "Achieved a First Class honours for Year 1 of my BEng Computing degree.",
+    // technologies: [],
+    type: "achievement"
   },
   {
-    id: "internship",
-    title: "Software Engineering Intern",
-    organization: "Unicorn Studio",
-    period: "Summer 2024",
-    description: "Built and maintained features for the company's flagship design product, focusing on performance optimization and user experience improvements.",
-    technologies: ["Next.js", "TypeScript", "React", "Node.js"],
+    id: "volunteer",
+    title: "Technical Consultant Volunteer",
+    organization: "Heavenly Joy Foundation",
+    period: "May 2025 - Present",
+    description: "Volunteering as a technical consultant, I began building a website and mobile app for a charity that provides meals to the elderly. It felt meaningful to use what I know to make something that helps people directly.",
+    // technologies: ["Qdrant", "GPT-Realtime", "RAG", "Multi-Agent Systems", "Speech-to-Speech AI", "Vector DB"],
     type: "work"
   },
   {
-    id: "hackathon",
-    title: "Hackathon Winner",
-    organization: "HackTheFuture",
-    period: "2023",
-    description: "Developed a full-stack application in 24 hours that won first place for its innovative use of AI in accessibility technology.",
-    technologies: ["Python", "FastAPI", "React", "OpenAI API"],
-    type: "project"
+    id: "imperial",
+    title: "Computing Student",
+    organization: "Imperial College London",
+    period: "Sep 2024 - Present",
+    description: "Pursuing BEng in Computing. Relevant coursework includes Data Structures, Algorithms, Databases, Operating Systems, Software Engineering Design and Machine Learning. ",
+    // technologies: ["Haskell", "Kotlin", "C", "Java", "Databases", "Computer Systems", "Computer Architecture", "Graphs and Algorithms", "Linear Algebra", "Statistics"],
+    type: "education"
   },
   {
-    id: "imperial",
-    title: "Computer Science Student",
-    organization: "Imperial College London",
-    period: "2021 - Present",
-    description: "Pursuing MEng in Computing with focus on machine learning, software engineering, and human-computer interaction. Active member of the Computer Science Society.",
-    technologies: ["Python", "Java", "C++", "Machine Learning", "Computer Vision"],
-    type: "education"
-  }
+    id: "internship-1",
+    title: "Intern",
+    organization: "Valuelabs",
+    period: "Summer 2023",
+    description: "My first experience with machine learning was both chaotic and eye-opening. I explored regression, clustering, and early NLP models, and it was the first time I saw data start to learn and respond.",
+    // technologies: ["Python", "Machine Learning", "CNN", "Transformers", "Computer Vision"],
+    type: "work"
+  },
+  // {
+  //   id: "hackathon",
+  //   title: "Hackathon Winner",
+  //   organization: "HackTheFuture",
+  //   period: "2023",
+  //   description: "Developed a full-stack application in 24 hours that won first place for its innovative use of AI in accessibility technology.",
+  //   technologies: ["Python", "FastAPI", "React", "OpenAI API"],
+  //   type: "project"
+  // },
 ];
 
 const typeColors = {
