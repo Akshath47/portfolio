@@ -92,7 +92,7 @@ export function JourneyTimeline() {
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
-    itemRefs.current.forEach((ref, index) => {
+    itemRefs.current.forEach((ref) => {
       if (ref) {
         const observer = new IntersectionObserver(
           (entries) => {

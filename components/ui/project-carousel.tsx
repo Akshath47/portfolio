@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface Project {
   id: string;
@@ -99,7 +98,7 @@ export function ProjectCarousel() {
         const r2 = cards[1].getBoundingClientRect();
         const measuredStep = r2.left - r1.left;
         const cs = getComputedStyle(inner);
-        const gapStr = (cs as any).columnGap || (cs as any).gap || '0px';
+        const gapStr = cs.columnGap || cs.gap || '0px';
         const gap = parseFloat(gapStr);
         const measuredWidth = cards[0].getBoundingClientRect().width;
         const computedLoopWidth = measuredStep * projects.length;

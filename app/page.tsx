@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ProjectCarousel } from "@/components/ui/project-carousel";
 import { ExperienceTabs } from "@/components/ui/experience-tabs";
@@ -11,25 +11,9 @@ import { JourneyTimeline } from "@/components/ui/journey-timeline";
 import { CentralBlackBar } from "@/components/ui/central-black-bar";
 import { ScrollAnimationProvider } from "@/components/ui/scroll-animations";
 import { UnicornStudioScript } from "@/components/unicorn-studio-script";
-import dynamic from "next/dynamic";
 import "react-vertical-timeline-component/style.min.css";
 
 
-const VerticalTimeline = dynamic(
-  () =>
-    import("react-vertical-timeline-component").then(
-      (mod) => mod.VerticalTimeline
-    ),
-  { ssr: false }
-);
-
-const VerticalTimelineElement = dynamic(
-  () =>
-    import("react-vertical-timeline-component").then(
-      (mod) => mod.VerticalTimelineElement
-    ),
-  { ssr: false }
-);
 
 export default function Home() {
   // Auto scroll to top on page reload
@@ -68,7 +52,7 @@ export default function Home() {
                   {/* Main Hero Content */}
                   <div className="text-center mb-12">
                     <p className="text-lg text-white mb-8 max-w-3xl mx-auto">
-                      Passionate about learning, building, and exploring the possibilities of technology. I enjoy taking on challenges that help me grow, and I'm always looking for ways to connect ideas with impact.
+                      Passionate about learning, building, and exploring the possibilities of technology. I enjoy taking on challenges that help me grow, and I&apos;m always looking for ways to connect ideas with impact.
                     </p>
                   </div>
 
@@ -166,7 +150,7 @@ export default function Home() {
             <footer className="w-full max-w-6xl mx-auto text-center fade-in-up stagger-4">
               <Separator className="mb-8 bg-gray-700" />
               <p className="text-sm text-gray-400">
-                © 2024 Akshath. All rights reserved.
+                © 2025 Akshath. All rights reserved.
               </p>
             </footer>
 

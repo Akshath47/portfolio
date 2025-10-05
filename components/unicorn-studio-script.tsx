@@ -10,8 +10,8 @@ export function UnicornStudioScript() {
       const script = document.createElement("script");
       script.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.31/dist/unicornStudio.umd.js";
       script.onload = function() {
-        if (!window.UnicornStudio.isInitialized) {
-          (window as any).UnicornStudio.init();
+        if (!window.UnicornStudio.isInitialized && window.UnicornStudio.init) {
+          window.UnicornStudio.init();
           window.UnicornStudio.isInitialized = true;
         }
       };
