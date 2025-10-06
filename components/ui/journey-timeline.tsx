@@ -53,6 +53,15 @@ const journeyEntries: JourneyEntry[] = [
     type: "education"
   },
   {
+    id: "sancta-maria",
+    title: "Valedictorian",
+    organization: "High School",
+    period: "March 2024",
+    description: "Was honoured to be the valedictorian for my graduating class of 2024 at Sancta Maria, Hyderabad.",
+    // technologies: [],
+    type: "education"
+  },
+  {
     id: "internship-1",
     title: "Intern",
     organization: "Valuelabs",
