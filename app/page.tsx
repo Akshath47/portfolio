@@ -24,9 +24,9 @@ export default function Home() {
   return (
     <ScrollAnimationProvider>
       <UnicornStudioScript />
-      <main className="relative min-h-screen">
+      <main className="relative min-h-screen" style={{overscrollBehavior: 'none'}}>
         {/* Unicorn Studio embed as full page background */}
-        <div className="fixed inset-0 w-full h-full z-0">
+        <div className="fixed inset-0 w-full h-full z-0" style={{overscrollBehavior: 'none'}}>
           <div
             data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.10"
             style={{width: '100vw', height: '110vh'}}
