@@ -43,7 +43,7 @@ export default function Home() {
 
         {/* Main Gradient Card - spans all content sections */}
         <div className="main-gradient-card w-full min-h-screen">
-          <div className="container mx-auto px-4 py-16 max-w-4xl">
+          <div className="container mx-auto px-4 pb-16 max-w-4xl">
             
             {/* Hero Section Card - Layered on main gradient card */}
             <section className="relative mb-24 fade-in-up">
