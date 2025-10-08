@@ -132,10 +132,17 @@ export function JourneyTimeline() {
 
   return (
     <div className="relative max-w-6xl mx-auto">
-      {/* Central Timeline line */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-gray-400/50 to-transparent transform -translate-x-px"></div>
+      {/* Central Timeline line - visible on desktop, hidden on mobile */}
+      <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-gray-400/50 to-transparent transform -translate-x-px"></div>
+      
+      {/* Mobile timeline line - left side - behind cards - stronger in middle, fades at ends */}
+      <div className="md:hidden absolute left-0 top-0 bottom-0 w-0.5 z-0"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(112, 182, 246, 0.15) 5%, rgba(112, 182, 246, 0.5) 15%, rgba(112, 182, 246, 0.6) 50%, rgba(112, 182, 246, 0.5) 85%, rgba(112, 182, 246, 0.15) 95%, transparent 100%)'
+        }}
+      ></div>
 
-      <div className="relative">
+      <div className="relative z-10">
         {journeyEntries.map((entry, index) => {
           const isEven = index % 2 === 0;
           return (
@@ -144,26 +151,47 @@ export function JourneyTimeline() {
               ref={(el) => {
                 itemRefs.current[index] = el;
               }}
-              className="relative flex items-center justify-center mb-20 group timeline-item opacity-0 translate-y-8 transition-all duration-700 ease-out"
+              className="relative flex flex-col items-start md:flex-row md:items-center md:justify-center mb-6 md:mb-20 group timeline-item opacity-0 translate-y-8 transition-all duration-700 ease-out pl-6 md:pl-0"
             >
+              {/* Mobile timeline dot with subtle connecting line */}
+              <div className="md:hidden absolute left-0 top-6 -translate-x-[5px]">
+                {/* Subtle connecting line to card */}
+                <div
+                  className="absolute left-1.5 top-1.5 w-4 h-px opacity-30"
+                  style={{ backgroundColor: typeColors[entry.type] }}
+                ></div>
+                {/* Timeline dot */}
+                <div
+                  className="w-3 h-3 rounded-full border-2 border-gray-800 relative"
+                  style={{
+                    backgroundColor: typeColors[entry.type],
+                    boxShadow: `0 0 8px ${typeColors[entry.type]}40`
+                  }}
+                ></div>
+              </div>
               {/* Left side content (even indices) */}
               {isEven && (
                 <>
                   {/* Journey Card - Left side */}
-                  <div className="w-5/12">
-                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300 mr-16">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between gap-4">
+                  <div className="w-full md:w-5/12 order-2 md:order-1 relative z-10">
+                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300 mt-0 md:mr-16 md:mt-0">
+                      <CardHeader className="pb-2 p-3 md:pb-3 md:p-6">
+                        <div className="flex items-start justify-between gap-2">
                           <div className="flex-1">
-                            <CardTitle className="text-xl text-white mb-2 group-hover:text-gray-200 transition-colors">
+                            {/* Period inside card on mobile, hidden on desktop */}
+                            <div className="block md:hidden text-sm font-semibold mb-1.5"
+                              style={{ color: typeColors[entry.type] }}>
+                              {entry.period}
+                            </div>
+                            <CardTitle className="text-base md:text-xl text-white mb-1.5 md:mb-2 group-hover:text-gray-200 transition-colors leading-tight">
                               {entry.title}
                             </CardTitle>
-                            <p className="text-gray-300 font-medium mb-1">
+                            <p className="text-gray-300 text-sm md:text-base font-medium mb-1.5 md:mb-1">
                               {entry.organization}
                             </p>
                             <Badge
                               variant="outline"
-                              className="text-xs px-3 py-1 border-opacity-50 transition-all duration-300 group-hover:border-opacity-100 mt-2"
+                              className="text-xs px-2 py-0.5 md:px-3 md:py-1 border-opacity-50 transition-all duration-300 group-hover:border-opacity-100 mt-1 md:mt-2"
                               style={{
                                 borderColor: typeColors[entry.type],
                                 color: typeColors[entry.type]
@@ -175,8 +203,8 @@ export function JourneyTimeline() {
                         </div>
                       </CardHeader>
 
-                      <CardContent className="pt-0">
-                        <p className="text-gray-300 mb-4 leading-relaxed">
+                      <CardContent className="pt-0 p-3 md:p-6 md:pt-0">
+                        <p className="text-gray-300 text-xs md:text-base mb-2 md:mb-4 leading-relaxed">
                           {entry.description}
                         </p>
 
@@ -200,8 +228,8 @@ export function JourneyTimeline() {
                     </Card>
                   </div>
 
-                  {/* Timeline node - Center (absolute positioned) */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                  {/* Timeline node - Center (absolute positioned) - hidden on mobile, visible on desktop */}
+                  <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
                     <div
                       className="w-6 h-6 rounded-full border-3 border-gray-800 flex items-center justify-center transition-all duration-300 group-hover:scale-125 relative"
                       style={{
@@ -237,9 +265,9 @@ export function JourneyTimeline() {
                     ></div>
                   </div>
 
-                  {/* Year/Period - Right side */}
-                  <div className="w-5/12 text-left pl-16">
-                    <div className="text-2xl font-bold text-white mb-2">
+                  {/* Year/Period - Right side - hidden on mobile, visible on desktop */}
+                  <div className="hidden md:block md:w-5/12 md:text-left md:pl-16 md:order-3">
+                    <div className="md:text-2xl md:font-bold md:text-white md:mb-2">
                       {entry.period}
                     </div>
                   </div>
@@ -249,15 +277,15 @@ export function JourneyTimeline() {
               {/* Right side content (odd indices) */}
               {!isEven && (
                 <>
-                  {/* Year/Period - Left side */}
-                  <div className="w-5/12 text-right pr-16">
-                    <div className="text-2xl font-bold text-white mb-2">
+                  {/* Year/Period - Left side - hidden on mobile, visible on desktop */}
+                  <div className="hidden md:block md:w-5/12 md:text-right md:pr-16 md:order-1">
+                    <div className="md:text-2xl md:font-bold md:text-white md:mb-2">
                       {entry.period}
                     </div>
                   </div>
 
-                  {/* Timeline node - Center (absolute positioned) */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                  {/* Timeline node - Center (absolute positioned) - hidden on mobile, visible on desktop */}
+                  <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
                     <div
                       className="w-6 h-6 rounded-full border-3 border-gray-800 flex items-center justify-center transition-all duration-300 group-hover:scale-125"
                       style={{
@@ -294,20 +322,25 @@ export function JourneyTimeline() {
                   </div>
 
                   {/* Journey Card - Right side */}
-                  <div className="w-5/12 pl-16">
-                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between gap-4">
+                  <div className="w-full md:w-5/12 pl-0 md:pl-16 order-2 md:order-3 relative z-10">
+                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300 mt-0 md:mt-0">
+                      <CardHeader className="pb-2 p-3 md:pb-3 md:p-6">
+                        <div className="flex items-start justify-between gap-2">
                           <div className="flex-1">
-                            <CardTitle className="text-xl text-white mb-2 group-hover:text-gray-200 transition-colors">
+                            {/* Period inside card on mobile, hidden on desktop */}
+                            <div className="block md:hidden text-sm font-semibold mb-1.5"
+                              style={{ color: typeColors[entry.type] }}>
+                              {entry.period}
+                            </div>
+                            <CardTitle className="text-base md:text-xl text-white mb-1.5 md:mb-2 group-hover:text-gray-200 transition-colors leading-tight">
                               {entry.title}
                             </CardTitle>
-                            <p className="text-gray-300 font-medium mb-1">
+                            <p className="text-gray-300 text-sm md:text-base font-medium mb-1.5 md:mb-1">
                               {entry.organization}
                             </p>
                             <Badge
                               variant="outline"
-                              className="text-xs px-3 py-1 border-opacity-50 transition-all duration-300 group-hover:border-opacity-100 mt-2"
+                              className="text-xs px-2 py-0.5 md:px-3 md:py-1 border-opacity-50 transition-all duration-300 group-hover:border-opacity-100 mt-1 md:mt-2"
                               style={{
                                 borderColor: typeColors[entry.type],
                                 color: typeColors[entry.type]
@@ -319,8 +352,8 @@ export function JourneyTimeline() {
                         </div>
                       </CardHeader>
 
-                      <CardContent className="pt-0">
-                        <p className="text-gray-300 mb-4 leading-relaxed">
+                      <CardContent className="pt-0 p-3 md:p-6 md:pt-0">
+                        <p className="text-gray-300 text-xs md:text-base mb-2 md:mb-4 leading-relaxed">
                           {entry.description}
                         </p>
 
