@@ -37,7 +37,7 @@ export default function Home() {
         <CentralBlackBar />
 
         {/* All content overlaid on the UnicornScene background */}
-        <div className="relative z-40">
+        <div className="relative z-40">a
         {/* Spacer for full hero page - just the UnicornScene */}
         <div className="h-screen"></div>
 
