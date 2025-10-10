@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { ProjectCarousel } from "@/components/ui/project-carousel";
 import { ExperienceTabs } from "@/components/ui/experience-tabs";
 import { JourneyTimeline } from "@/components/ui/journey-timeline";
-import { CentralBlackBar } from "@/components/ui/central-black-bar";
 import { ScrollAnimationProvider } from "@/components/ui/scroll-animations";
 import { UnicornStudioScript } from "@/components/unicorn-studio-script";
 import "react-vertical-timeline-component/style.min.css";
@@ -33,11 +32,8 @@ export default function Home() {
           ></div>
         </div>
 
-        {/* Central Black Bar - appears after scrolling */}
-        <CentralBlackBar />
-
         {/* All content overlaid on the UnicornScene background */}
-        <div className="relative z-40">a
+        <div className="relative z-40">
         {/* Spacer for full hero page - just the UnicornScene */}
         <div className="h-screen"></div>
 
