@@ -70,15 +70,15 @@ const journeyEntries: JourneyEntry[] = [
     // technologies: ["Python", "Machine Learning", "CNN", "Transformers", "Computer Vision"],
     type: "work"
   },
-  // {
-  //   id: "hackathon",
-  //   title: "Hackathon Winner",
-  //   organization: "HackTheFuture",
-  //   period: "2023",
-  //   description: "Developed a full-stack application in 24 hours that won first place for its innovative use of AI in accessibility technology.",
-  //   technologies: ["Python", "FastAPI", "React", "OpenAI API"],
-  //   type: "project"
-  // },
+  {
+    id: "hackathon",
+    title: "Hackathon 2nd Round",
+    organization: "IIIT-H Hackathon",
+    period: "2023",
+    description: "Participated in the IIT-H Makers’ Hackathon, developing an Arduino-based IoT device and app while learning teamwork, IoT fundamentals, and earning Level 2 recognition for innovation.",
+    // technologies: ["IoT", "Arduino"],
+    type: "project"
+  },
 ];
 
 const typeColors = {
