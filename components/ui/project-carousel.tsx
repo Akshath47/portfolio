@@ -160,7 +160,7 @@ export function ProjectCarousel() {
                 if (!open) setSelectedProject(null);
               }}>
                 <Card
-                  className="project-card-infinite layered-section-card cursor-pointer"
+                  className="project-card-infinite layered-section-card cursor-pointer min-h-[44px]"
                   onClick={() => handleCardClick(project)}
                   onMouseEnter={handleCardMouseEnter}
                   onMouseLeave={handleCardMouseLeave}
@@ -170,46 +170,46 @@ export function ProjectCarousel() {
                     alt={project.title}
                     width={300}
                     height={200}
-                    className="rounded-t-lg object-cover w-full h-48"
+                    className="rounded-t-lg object-cover w-full h-40 md:h-48"
                   />
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white">{project.title}</CardTitle>
+                  <CardHeader className="p-4 md:p-6">
+                    <CardTitle className="text-lg md:text-xl text-white">{project.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-gray-300">{project.description}</p>
-                    <div className="text-[oklch(0.70_0.18_190)] text-sm">
+                  <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
+                    <p className="mb-3 text-sm md:text-base md:mb-4 text-gray-300">{project.description}</p>
+                    <div className="text-[oklch(0.70_0.18_190)] text-xs md:text-sm">
                       Click to view full details
                     </div>
                   </CardContent>
                 </Card>
-                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-black/90 backdrop-blur-sm border-[oklch(0.65_0.26_340/0.8)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full">
+                <DialogContent className="max-w-[95vw] md:max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-y-auto bg-black/90 backdrop-blur-sm border-[oklch(0.65_0.26_340/0.8)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full p-4 md:p-6">
                   <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold text-white">{project.title}</DialogTitle>
+                    <DialogTitle className="text-xl md:text-2xl font-bold text-white">{project.title}</DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-6">
+                  <div className="space-y-4 md:space-y-6">
                     <Image
                       src={project.image}
                       alt={project.title}
                       width={600}
                       height={300}
-                      className="rounded-lg object-cover w-full h-64"
+                      className="rounded-lg object-cover w-full h-48 md:h-64"
                     />
-                    <div className="space-y-4">
+                    <div className="space-y-3 md:space-y-4">
                       <div>
-                        <h3 className="text-lg font-semibold mb-2 text-white">Description</h3>
-                        <p className="text-gray-300">{project.description}</p>
+                        <h3 className="text-base md:text-lg font-semibold mb-1.5 md:mb-2 text-white">Description</h3>
+                        <p className="text-gray-300 text-sm md:text-base">{project.description}</p>
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold mb-2 text-white">Details</h3>
-                        <p className="text-gray-300">{project.details}</p>
+                        <h3 className="text-base md:text-lg font-semibold mb-1.5 md:mb-2 text-white">Details</h3>
+                        <p className="text-gray-300 text-sm md:text-base">{project.details}</p>
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold mb-2 text-white">Technologies</h3>
-                        <div className="flex flex-wrap gap-2">
+                        <h3 className="text-base md:text-lg font-semibold mb-1.5 md:mb-2 text-white">Technologies</h3>
+                        <div className="flex flex-wrap gap-1.5 md:gap-2">
                           {selectedProject?.technologies.map((tech, index) => (
                             <span
                               key={index}
-                              className="px-3 py-1 bg-[oklch(0.70_0.18_190/0.15)] text-[oklch(0.70_0.18_190)] border border-[oklch(0.70_0.18_190/0.4)] rounded-full text-sm hover:bg-[oklch(0.70_0.18_190/0.25)] transition-all duration-300 hover:scale-105"
+                              className="px-2.5 py-0.5 md:px-3 md:py-1 bg-[oklch(0.70_0.18_190/0.15)] text-[oklch(0.70_0.18_190)] border border-[oklch(0.70_0.18_190/0.4)] rounded-full text-xs md:text-sm hover:bg-[oklch(0.70_0.18_190/0.25)] transition-all duration-300 hover:scale-105"
                             >
                               {tech}
                             </span>
@@ -225,7 +225,7 @@ export function ProjectCarousel() {
         </div>
       </div>
 
-      <div className="carousel-controls">
+      <div className="carousel-controls mt-4 md:mt-2">
         {projects.map((_, index) => (
           <button
             key={index}
@@ -235,6 +235,7 @@ export function ProjectCarousel() {
               const targetTranslateX = -(index * step);
               setTranslateX(targetTranslateX);
             }}
+            aria-label={`Go to project ${index + 1}`}
           />
         ))}
       </div>

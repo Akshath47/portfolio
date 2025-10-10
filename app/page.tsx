@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { ProjectCarousel } from "@/components/ui/project-carousel";
 import { ExperienceTabs } from "@/components/ui/experience-tabs";
 import { JourneyTimeline } from "@/components/ui/journey-timeline";
-import { CentralBlackBar } from "@/components/ui/central-black-bar";
 import { ScrollAnimationProvider } from "@/components/ui/scroll-animations";
 import { UnicornStudioScript } from "@/components/unicorn-studio-script";
 import "react-vertical-timeline-component/style.min.css";
@@ -24,17 +23,14 @@ export default function Home() {
   return (
     <ScrollAnimationProvider>
       <UnicornStudioScript />
-      <main className="relative min-h-screen">
+      <main className="relative min-h-screen" style={{overscrollBehavior: 'none'}}>
         {/* Unicorn Studio embed as full page background */}
-        <div className="fixed inset-0 w-full h-full z-0">
+        <div className="fixed inset-0 w-full h-full z-0" style={{overscrollBehavior: 'none'}}>
           <div
-            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.9"
-            style={{width: '100vw', height: '110vh'}}
+            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.10"
+            style={{width: '100vw', height: '110lvh'}}
           ></div>
         </div>
-
-        {/* Central Black Bar - appears after scrolling */}
-        <CentralBlackBar />
 
         {/* All content overlaid on the UnicornScene background */}
         <div className="relative z-40">
@@ -43,54 +39,54 @@ export default function Home() {
 
         {/* Main Gradient Card - spans all content sections */}
         <div className="main-gradient-card w-full min-h-screen">
-          <div className="container mx-auto px-4 py-16 max-w-4xl">
+          <div className="container mx-auto px-3 md:px-4 pb-8 md:pb-16 max-w-4xl">
             
             {/* Hero Section Card - Layered on main gradient card */}
-            <section className="relative mb-24 fade-in-up">
+            <section className="relative mb-12 md:mb-24 fade-in-up">
               <Card className="max-w-6xl mx-auto layered-section-card">
-                <CardContent className="pt-12 pr-12 pb-2 pl-12">
+                <CardContent className="pt-6 px-4 pb-2 md:pt-12 md:pr-12 md:pl-12">
                   {/* Main Hero Content */}
-                  <div className="text-center mb-12">
-                    <p className="text-lg text-white mb-8 max-w-3xl mx-auto">
+                  <div className="text-center mb-8 md:mb-12">
+                    <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-3xl mx-auto">
                       Passionate about learning, building, and exploring the possibilities of technology. I enjoy taking on challenges that help me grow, and I&apos;m always looking for ways to connect ideas with impact.
                     </p>
                   </div>
 
-                  <Separator className="mb-8 bg-gray-700" />
+                  <Separator className="mb-6 md:mb-8 bg-gray-700" />
 
                   {/* Contact Section */}
-                  <div className="text-center mb-8">
+                  <div className="text-center mb-6 md:mb-8">
                     {/* Prominent email address display */}
-                    <div className="mb-6">
-                      <p className="text-2xl font-medium text-white mb-2">Email</p>
-                      <p className="text-xl text-gray-300 font-mono">akshathyennam@gmail.com</p>
+                    <div className="mb-4 md:mb-6">
+                      <p className="text-lg md:text-2xl font-medium text-white mb-2">Email</p>
+                      <p className="text-base md:text-xl text-gray-300 font-mono break-all px-2">akshathyennam@gmail.com</p>
                     </div>
 
                     {/* Secondary contact button */}
-                    <div className="flex justify-center gap-4">
-                      <Button size="default" className="secondary-button px-8 py-3" asChild>
+                    <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4">
+                      <Button size="default" className="secondary-button px-8 py-3 w-full md:w-auto min-h-[44px]" asChild>
                         <a href="mailto:akshathyennam@gmail.com" target="_blank" rel="noopener noreferrer">Contact Me</a>
                       </Button>
                     </div>
                   </div>
 
-                  <Separator className="mb-8 bg-gray-700" />
+                  <Separator className="mb-6 md:mb-8 bg-gray-700" />
 
                   {/* Profiles Section */}
-                  <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold tracking-tight mb-6 text-white">Profile</h2>
-                    <div className="flex justify-center gap-4">
-                      <Button asChild className="secondary-button">
+                  <div className="text-center mb-6 md:mb-8">
+                    <h2 className="text-xl md:text-3xl font-bold tracking-tight mb-4 md:mb-6 text-white">Profile</h2>
+                    <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4">
+                      <Button asChild className="secondary-button w-full md:w-auto min-h-[44px]">
                         <a href="/Akshath_Yennam_CV.pdf" target="_blank" rel="noopener noreferrer">
                           Resume
                         </a>
                       </Button>
-                      <Button asChild className="secondary-button">
+                      <Button asChild className="secondary-button w-full md:w-auto min-h-[44px]">
                         <a href="https://www.linkedin.com/in/akshathyennam/" target="_blank" rel="noopener noreferrer">
                           LinkedIn
                         </a>
                       </Button>
-                      <Button asChild className="secondary-button">
+                      <Button asChild className="secondary-button w-full md:w-auto min-h-[44px]">
                         <a href="https://github.com/Akshath47" target="_blank" rel="noopener noreferrer">
                           GitHub
                         </a>
@@ -98,22 +94,22 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <Separator className="mb-8 bg-gray-700" />
+                  <Separator className="mb-6 md:mb-8 bg-gray-700" />
 
                   {/* Skills Section */}
-                  <div className="mb-8">
-                    <h2 className="text-3xl font-bold tracking-tight text-center mb-6 text-white">Skills</h2>
-                    <div className="flex flex-wrap justify-center gap-3">
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Python</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">JavaScript</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Kotlin</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Java</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">C</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">RAG</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">LangGraph</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Agentic AI Systems</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Speech-to-Speech AI</Badge>
-                      <Badge variant="outline" className="text-sm px-4 py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">GPT-Realtime</Badge>
+                  <div className="mb-6 md:mb-8">
+                    <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center mb-4 md:mb-6 text-white">Skills</h2>
+                    <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Python</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">JavaScript</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Kotlin</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Java</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">C</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">RAG</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">LangGraph</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Agentic AI Systems</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Speech-to-Speech AI</Badge>
+                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">GPT-Realtime</Badge>
                     </div>
                   </div>
                 </CardContent>
@@ -121,35 +117,35 @@ export default function Home() {
             </section>
 
             {/* Experience Section - Layered on main gradient card */}
-            <section id="experience" className="w-full max-w-6xl mx-auto mb-24 fade-in-up stagger-1">
-              <h2 className="text-4xl font-bold tracking-tight text-center mb-12 text-white">
+            <section id="experience" className="w-full max-w-6xl mx-auto mb-12 md:mb-24 fade-in-up stagger-1">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-center mb-8 md:mb-12 text-white">
                 Experience
               </h2>
               <ExperienceTabs />
             </section>
 
             {/* Projects Section - Layered on main gradient card */}
-            <section id="projects" className="w-full max-w-6xl mx-auto mb-24 fade-in-up stagger-2">
-              <h2 className="text-4xl font-bold tracking-tight text-center text-white">
+            <section id="projects" className="w-full max-w-6xl mx-auto mb-12 md:mb-24 fade-in-up stagger-2">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-center text-white mb-4 md:mb-6">
                 Projects
               </h2>
               <ProjectCarousel />
             </section>
 
             {/* Journey Section - Layered on main gradient card */}
-            <section id="journey" className="w-full max-w-6xl mx-auto mb-16 fade-in-up stagger-3">
-              <h2 className="text-4xl font-bold tracking-tight text-center mb-12 text-white">
+            <section id="journey" className="w-full max-w-6xl mx-auto mb-8 md:mb-16 fade-in-up stagger-3">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-center mb-8 md:mb-12 text-white">
                 Journey
               </h2>
-              <div className="mt-6">
+              <div className="mt-4 md:mt-6">
                 <JourneyTimeline />
               </div>
             </section>
 
             {/* Footer */}
             <footer className="w-full max-w-6xl mx-auto text-center fade-in-up stagger-4">
-              <Separator className="mb-8 bg-gray-700" />
-              <p className="text-sm text-gray-400">
+              <Separator className="mb-6 md:mb-8 bg-gray-700" />
+              <p className="text-xs md:text-sm text-gray-400 px-4">
                 © 2025 Akshath. All rights reserved.
               </p>
             </footer>
