@@ -28,7 +28,7 @@ export default function Home() {
         <div className="fixed inset-0 w-full h-full z-0" style={{overscrollBehavior: 'none'}}>
           <div
             data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.10"
-            style={{width: '100vw', height: '110dvh'}}
+            style={{width: '100vw', height: '110lvh'}}
           ></div>
         </div>
 

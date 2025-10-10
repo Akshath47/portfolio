@@ -118,7 +118,7 @@
   }
   html, body {
     @apply bg-background text-foreground;
-    overscroll-behavior: none;
+    overscroll-behavior-y: none;
     overflow-x: clip;     
     height: 100%;
   }
