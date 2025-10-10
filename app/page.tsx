@@ -45,6 +45,15 @@ export default function Home() {
             <section className="relative mb-12 md:mb-24 fade-in-up">
               <Card className="max-w-6xl mx-auto layered-section-card">
                 <CardContent className="pt-6 px-4 pb-2 md:pt-12 md:pr-12 md:pl-12">
+                  {/* Logo */}
+                  <div className="flex justify-center mb-6 md:mb-8">
+                    <img
+                      src="/logo_inverted.png"
+                      alt="Akshath Yennam Logo"
+                      className="w-20 h-20 md:w-28 md:h-28 object-contain"
+                    />
+                  </div>
+                  
                   {/* Main Hero Content */}
                   <div className="text-center mb-8 md:mb-12">
                     <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-3xl mx-auto">
@@ -145,9 +154,16 @@ export default function Home() {
             {/* Footer */}
             <footer className="w-full max-w-6xl mx-auto text-center fade-in-up stagger-4">
               <Separator className="mb-6 md:mb-8 bg-gray-700" />
-              <p className="text-xs md:text-sm text-gray-400 px-4">
-                © 2025 Akshath. All rights reserved.
-              </p>
+              <div className="flex flex-col items-center gap-3 md:gap-4">
+                <img
+                  src="/logo_inverted.png"
+                  alt="Akshath Yennam Logo"
+                  className="w-10 h-10 md:w-12 md:h-12 object-contain opacity-80"
+                />
+                <p className="text-xs md:text-sm text-gray-400 px-4">
+                  © 2025 Akshath. All rights reserved.
+                </p>
+              </div>
             </footer>
 
           </div>
