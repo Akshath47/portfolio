@@ -74,11 +74,16 @@ const experiences: Experience[] = [
 function ExperienceCard({ experience }: { experience: Experience }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsOpen(true);
+  };
+
   return (
     <>
       <Card
         className="layered-section-card h-full flex flex-col cursor-pointer hover:border-primary transition-all duration-300 group relative overflow-hidden min-h-[44px]"
-        onClick={() => setIsOpen(true)}
+        onClick={handleCardClick}
       >
         <CardHeader className="pb-3 p-4 md:pb-4 md:p-6">
           <div className="flex items-start justify-between">
@@ -122,8 +127,8 @@ function ExperienceCard({ experience }: { experience: Experience }) {
         <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-lg pointer-events-none transition-all duration-300" />
       </Card>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-[95vw] md:max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-y-auto bg-black/90 backdrop-blur-sm border-primary/20 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full p-4 md:p-6">
+      <Dialog open={isOpen} onOpenChange={setIsOpen} modal={false}>
+        <DialogContent className="max-w-[95vw] md:max-w-2xl bg-black/90 backdrop-blur-sm border-primary/20 p-4 md:p-6">
           <DialogHeader>
             <DialogTitle className="text-xl md:text-2xl text-white mb-1 md:mb-2">
               {experience.title}
