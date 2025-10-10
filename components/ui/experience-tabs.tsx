@@ -128,7 +128,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
       </Card>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen} modal={false}>
-        <DialogContent className="max-w-[95vw] md:max-w-2xl bg-black/90 backdrop-blur-sm border-primary/20 p-4 md:p-6">
+        <DialogContent className="max-w-[95vw] md:max-w-2xl max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-y-visible bg-black/90 backdrop-blur-sm border-primary/20 [&::-webkit-scrollbar]:w-2 md:[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full p-4 md:p-6">
           <DialogHeader>
             <DialogTitle className="text-xl md:text-2xl text-white mb-1 md:mb-2">
               {experience.title}

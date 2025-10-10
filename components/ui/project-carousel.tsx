@@ -192,7 +192,7 @@ export function ProjectCarousel() {
       <Dialog modal={false} open={selectedProject !== null} onOpenChange={(open) => {
         if (!open) handleCloseDialog();
       }}>
-        <DialogContent className="max-w-[95vw] md:max-w-2xl bg-black/90 backdrop-blur-sm border-[oklch(0.65_0.26_340/0.8)] p-4 md:p-6">
+        <DialogContent className="max-w-[95vw] md:max-w-2xl max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-y-visible bg-black/90 backdrop-blur-sm border-[oklch(0.65_0.26_340/0.8)] [&::-webkit-scrollbar]:w-2 md:[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full p-4 md:p-6">
           {selectedProject && (
             <>
               <DialogHeader>
