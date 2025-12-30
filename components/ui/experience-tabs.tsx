@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -9,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ChevronRight } from "lucide-react";
+import { TerminalWindow } from "@/components/ui/terminal-window";
 
 interface Experience {
   id: string;
@@ -81,74 +80,93 @@ function ExperienceCard({ experience }: { experience: Experience }) {
 
   return (
     <>
-      <Card
-        className="layered-section-card h-full flex flex-col cursor-pointer hover:border-primary transition-all duration-300 group relative overflow-hidden min-h-[44px]"
+      <div
+        className="cursor-pointer transition-all duration-300 hover:scale-[1.02]"
         onClick={handleCardClick}
       >
-        <CardHeader className="pb-3 p-4 md:pb-4 md:p-6">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <CardTitle className="text-lg md:text-xl text-white mb-1 md:mb-2 group-hover:text-primary transition-colors duration-300">
-                {experience.title}
-              </CardTitle>
-              <p className="text-xs md:text-sm text-gray-400 mt-1 md:mt-2">
+        <TerminalWindow
+          title={`${experience.company.toLowerCase().replace(/\s+/g, '-')}-${experience.id}`}
+          className="h-full"
+        >
+          <div className="space-y-3">
+            <div>
+              <div className="flex items-start gap-2 mb-2">
+                <span className="text-terminal-green-medium flex-shrink-0">$</span>
+                <h3 className="text-base md:text-lg font-bold text-terminal-green-bright font-mono">
+                  {experience.title}
+                </h3>
+              </div>
+              <p className="text-xs md:text-sm text-terminal-green-dark ml-6">
                 {experience.company} | {experience.period}
               </p>
             </div>
+            <div className="flex flex-wrap gap-1.5 md:gap-2 ml-6">
+              {experience.technologies.slice(0, 4).map((tech) => (
+                <Badge
+                  key={tech}
+                  variant="outline"
+                  className="text-xs px-2 py-0.5 border-terminal-green-dark text-terminal-green-medium hover:bg-terminal-green-medium hover:text-black font-mono"
+                >
+                  {tech}
+                </Badge>
+              ))}
+              {experience.technologies.length > 4 && (
+                <Badge
+                  variant="outline"
+                  className="text-xs px-2 py-0.5 border-terminal-green-dark text-terminal-green-dark font-mono"
+                >
+                  +{experience.technologies.length - 4}
+                </Badge>
+              )}
+            </div>
+            <div className="mt-3 pt-3 border-t border-terminal-green-dark opacity-30 flex items-center gap-2 ml-6">
+              <span className="text-terminal-green-dark text-xs">[</span>
+              <span className="text-terminal-green-medium text-xs animate-pulse font-mono">
+                click for details
+              </span>
+              <span className="text-terminal-green-dark text-xs">]</span>
+            </div>
           </div>
-        </CardHeader>
-        <CardContent className="flex-1 flex flex-col p-4 pt-0 md:p-6 md:pt-0">
-          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
-            {experience.technologies.slice(0, 4).map((tech) => (
-              <Badge
-                key={tech}
-                variant="outline"
-                className="text-xs md:text-sm px-2 py-0.5 md:px-3 md:py-1 border-primary/50 text-white"
-              >
-                {tech}
-              </Badge>
-            ))}
-            {experience.technologies.length > 4 && (
-              <Badge
-                variant="outline"
-                className="text-xs md:text-sm px-2 py-0.5 md:px-3 md:py-1 border-primary/50 text-gray-400"
-              >
-                +{experience.technologies.length - 4} more
-              </Badge>
-            )}
-          </div>
-          <div className="mt-auto pt-2 md:pt-3 border-t border-gray-700/50 flex items-center justify-between text-xs md:text-sm">
-            <span className="text-primary font-medium group-hover:text-accent transition-colors duration-300">
-              View Details
-            </span>
-            <ChevronRight className="w-3 h-3 md:w-4 md:h-4 text-primary group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
-          </div>
-        </CardContent>
-        <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-lg pointer-events-none transition-all duration-300" />
-      </Card>
+        </TerminalWindow>
+      </div>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen} modal={false}>
-        <DialogContent className="max-w-[95vw] md:max-w-2xl max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-y-visible bg-black/90 backdrop-blur-sm border-primary/20 [&::-webkit-scrollbar]:w-2 md:[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb:hover]:bg-primary/50 [&::-webkit-scrollbar-thumb]:rounded-full p-4 md:p-6">
-          <DialogHeader>
-            <DialogTitle className="text-xl md:text-2xl text-white mb-1 md:mb-2">
-              {experience.title}
-            </DialogTitle>
-            <p className="text-xs md:text-sm text-gray-400">
-              {experience.company} | {experience.period}
-            </p>
+        <DialogContent className="max-w-[95vw] md:max-w-4xl max-h-[90vh] overflow-y-auto bg-black/95 backdrop-blur-sm border-2 border-terminal-green-medium/40 rounded-lg [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded p-6">
+          <DialogHeader className="sr-only">
+            <DialogTitle>{experience.title}</DialogTitle>
           </DialogHeader>
-          <div className="mt-3 md:mt-4 space-y-3 md:space-y-4">
-            <div className="text-gray-300 text-sm md:text-base">
-              {experience.description}
+          <div className="space-y-6">
+            {/* Experience Title */}
+            <div className="border-b border-terminal-green-dark/30 pb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-terminal-green-bright font-mono mb-2">
+                {experience.title}
+              </h2>
+              <p className="text-terminal-green-medium text-sm md:text-base font-mono">
+                {experience.company} | {experience.period}
+              </p>
             </div>
-            <div className="pt-3 md:pt-4 border-t border-gray-700">
-              <h4 className="text-xs md:text-sm font-semibold text-white mb-2 md:mb-3">Technologies & Skills</h4>
-              <div className="flex flex-wrap gap-1.5 md:gap-2">
+
+            {/* Description */}
+            <div>
+              <h3 className="text-lg font-semibold text-terminal-green-bright mb-3 font-mono">
+                Details
+              </h3>
+              <div className="text-terminal-green-medium text-sm md:text-base leading-relaxed">
+                {experience.description}
+              </div>
+            </div>
+
+            {/* Technologies */}
+            <div>
+              <h3 className="text-lg font-semibold text-terminal-green-bright mb-3 font-mono">
+                Technologies & Skills
+              </h3>
+              <div className="flex flex-wrap gap-2">
                 {experience.technologies.map((tech) => (
                   <Badge
                     key={tech}
                     variant="outline"
-                    className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300"
+                    className="text-xs md:text-sm px-3 py-1.5 border-terminal-green-dark/50 text-terminal-green-medium hover:bg-terminal-green-medium hover:text-black hover:border-terminal-green-medium transition-all duration-300 font-mono rounded"
                   >
                     {tech}
                   </Badge>

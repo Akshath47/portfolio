@@ -1,175 +1,212 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ProjectCarousel } from "@/components/ui/project-carousel";
+import { ProjectGrid } from "@/components/ui/project-grid";
 import { ExperienceTabs } from "@/components/ui/experience-tabs";
 import { JourneyTimeline } from "@/components/ui/journey-timeline";
 import { ScrollAnimationProvider } from "@/components/ui/scroll-animations";
-import { UnicornStudioScript } from "@/components/unicorn-studio-script";
+import { MatrixRain } from "@/components/matrix-rain";
 import "react-vertical-timeline-component/style.min.css";
 
-
-
 export default function Home() {
+  const [showContent, setShowContent] = useState(false);
+
   // Auto scroll to top on page reload
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Show content after a brief delay
+    setTimeout(() => setShowContent(true), 100);
   }, []);
 
   return (
     <ScrollAnimationProvider>
-      <UnicornStudioScript />
-      <main className="relative min-h-screen" style={{overscrollBehavior: 'none'}}>
-        {/* Unicorn Studio embed as full page background */}
-        <div className="fixed inset-0 w-full h-full z-0" style={{overscrollBehavior: 'none'}}>
-          <div
-            data-us-project="Kq6lW4MFKwYq3IoC5s3q?update=1.0.10"
-            style={{width: '100vw', height: '110lvh'}}
-          ></div>
-        </div>
+      <main className="relative min-h-screen scanlines crt-flicker">
+        {/* Matrix Rain Background */}
+        <MatrixRain />
 
-        {/* All content overlaid on the UnicornScene background */}
-        <div className="relative z-40">
-        {/* Spacer for full hero page - just the UnicornScene */}
-        <div className="h-screen"></div>
-
-        {/* Main Gradient Card - spans all content sections */}
-        <div className="main-gradient-card w-full min-h-screen">
-          <div className="container mx-auto px-3 md:px-4 pb-8 md:pb-16 max-w-4xl">
-            
-            {/* Hero Section Card - Layered on main gradient card */}
-            <section className="relative mb-12 md:mb-24 fade-in-up">
-              <Card className="max-w-6xl mx-auto layered-section-card">
-                <CardContent className="pt-6 px-4 pb-2 md:pt-12 md:pr-12 md:pl-12">
-                  {/* Logo */}
-                  <div className="flex justify-center mb-6 md:mb-8">
-                    <img
-                      src="/logo_inverted.png"
-                      alt="Akshath Yennam Logo"
-                      className="w-20 h-20 md:w-28 md:h-28 object-contain"
-                    />
-                  </div>
-                  
-                  {/* Main Hero Content */}
-                  <div className="text-center mb-8 md:mb-12">
-                    <p className="text-base md:text-lg text-white mb-6 md:mb-8 max-w-3xl mx-auto">
-                      Passionate about learning, building, and exploring the possibilities of technology. I enjoy taking on challenges that help me grow, and I&apos;m always looking for ways to connect ideas with impact.
+        {/* All content overlaid on the Matrix background */}
+        <div className="relative z-10">
+          {/* Hero Section - Full viewport height */}
+          <section className="min-h-screen flex items-center justify-center px-4 py-16">
+            <div className="container max-w-4xl mx-auto">
+              <div className="terminal-window mb-8">
+                <div className="terminal-header">
+                  <div className="terminal-button" />
+                  <div className="terminal-button" />
+                  <div className="terminal-button" />
+                  <span className="terminal-title ml-2">akshath@portfolio:~</span>
+                </div>
+                <div className="terminal-content space-y-4">
+                  {/* Name and Title */}
+                  <div className="mb-6">
+                    <div className="flex items-center">
+                      <h1 className="text-4xl md:text-6xl font-bold text-terminal-green-bright hero-name">
+                        AKSHATH YENNAM
+                      </h1>
+                      <span className="cursor-blink ml-2" />
+                    </div>
+                    <p className="text-lg md:text-xl text-terminal-green-medium mt-4 hero-tagline">
+                      Software Engineer | AI Enthusiast | Builder
                     </p>
                   </div>
 
-                  <Separator className="mb-6 md:mb-8 bg-gray-700" />
+                  <Separator className="bg-terminal-green-dark opacity-30" />
 
-                  {/* Contact Section */}
-                  <div className="text-center mb-6 md:mb-8">
-                    {/* Prominent email address display */}
-                    <div className="mb-4 md:mb-6">
-                      <p className="text-lg md:text-2xl font-medium text-white mb-2">Email</p>
-                      <p className="text-base md:text-xl text-gray-300 font-mono break-all px-2">akshathyennam@gmail.com</p>
+                  {/* Bio */}
+                  <div className="space-y-2">
+                    <div className="flex items-start gap-2">
+                      <span className="text-terminal-green-medium">$</span>
+                      <span className="text-terminal-green-bright font-mono">cat about.txt</span>
                     </div>
-
-                    {/* Secondary contact button */}
-                    <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4">
-                      <Button size="default" className="secondary-button px-8 py-3 w-full md:w-auto min-h-[44px]" asChild>
-                        <a href="mailto:akshathyennam@gmail.com" target="_blank" rel="noopener noreferrer">Contact Me</a>
-                      </Button>
-                    </div>
-                  </div>
-
-                  <Separator className="mb-6 md:mb-8 bg-gray-700" />
-
-                  {/* Profiles Section */}
-                  <div className="text-center mb-6 md:mb-8">
-                    <h2 className="text-xl md:text-3xl font-bold tracking-tight mb-4 md:mb-6 text-white">Profile</h2>
-                    <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4">
-                      <Button asChild className="secondary-button w-full md:w-auto min-h-[44px]">
-                        <a href="/Akshath_Yennam_CV.pdf" target="_blank" rel="noopener noreferrer">
-                          Resume
-                        </a>
-                      </Button>
-                      <Button asChild className="secondary-button w-full md:w-auto min-h-[44px]">
-                        <a href="https://www.linkedin.com/in/akshathyennam/" target="_blank" rel="noopener noreferrer">
-                          LinkedIn
-                        </a>
-                      </Button>
-                      <Button asChild className="secondary-button w-full md:w-auto min-h-[44px]">
-                        <a href="https://github.com/Akshath47" target="_blank" rel="noopener noreferrer">
-                          GitHub
-                        </a>
-                      </Button>
+                    <div className="ml-6 text-terminal-green-medium space-y-2">
+                      <p>
+                        Passionate about learning, building, and exploring the possibilities of technology.
+                      </p>
+                      <p>
+                        I enjoy taking on challenges that help me grow, and I&apos;m always looking for ways to connect ideas with impact.
+                      </p>
                     </div>
                   </div>
 
-                  <Separator className="mb-6 md:mb-8 bg-gray-700" />
+                  <Separator className="bg-terminal-green-dark opacity-30" />
 
-                  {/* Skills Section */}
-                  <div className="mb-6 md:mb-8">
-                    <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center mb-4 md:mb-6 text-white">Skills</h2>
-                    <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Python</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">JavaScript</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Kotlin</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Java</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">C</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">RAG</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">LangGraph</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Agentic AI Systems</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">Speech-to-Speech AI</Badge>
-                      <Badge variant="outline" className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300">GPT-Realtime</Badge>
+                  {/* Contact */}
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <span className="text-terminal-green-medium">$</span>
+                      <span className="text-terminal-green-bright font-mono">cat contact.txt</span>
+                    </div>
+                    <div className="ml-6 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-terminal-green-dark">EMAIL:</span>
+                        <span className="text-terminal-green-bright font-mono">akshathyennam@gmail.com</span>
+                      </div>
+                      <div className="flex flex-col md:flex-row gap-3">
+                        <Button size="default" className="cta-button" asChild>
+                          <a href="mailto:akshathyennam@gmail.com">
+                            [ CONTACT ME ]
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </section>
 
-            {/* Experience Section - Layered on main gradient card */}
-            <section id="experience" className="w-full max-w-6xl mx-auto mb-12 md:mb-24 fade-in-up stagger-1">
-              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-center mb-8 md:mb-12 text-white">
-                Experience
-              </h2>
-              <ExperienceTabs />
-            </section>
+                  <Separator className="bg-terminal-green-dark opacity-30" />
 
-            {/* Projects Section - Layered on main gradient card */}
-            <section id="projects" className="w-full max-w-6xl mx-auto mb-12 md:mb-24 fade-in-up stagger-2">
-              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-center text-white mb-4 md:mb-6">
-                Projects
-              </h2>
-              <ProjectCarousel />
-            </section>
+                  {/* Profiles */}
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <span className="text-terminal-green-medium">$</span>
+                      <span className="text-terminal-green-bright font-mono">ls -la profiles/</span>
+                    </div>
+                    <div className="ml-6">
+                      <div className="flex flex-col md:flex-row gap-3">
+                        <Button asChild className="secondary-button">
+                          <a href="/Akshath_Yennam_CV.pdf" target="_blank" rel="noopener noreferrer">
+                            [ RESUME.PDF ]
+                          </a>
+                        </Button>
+                        <Button asChild className="secondary-button">
+                          <a href="https://www.linkedin.com/in/akshathyennam/" target="_blank" rel="noopener noreferrer">
+                            [ LINKEDIN ]
+                          </a>
+                        </Button>
+                        <Button asChild className="secondary-button">
+                          <a href="https://github.com/Akshath47" target="_blank" rel="noopener noreferrer">
+                            [ GITHUB ]
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
 
-            {/* Journey Section - Layered on main gradient card */}
-            <section id="journey" className="w-full max-w-6xl mx-auto mb-8 md:mb-16 fade-in-up stagger-3">
-              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-center mb-8 md:mb-12 text-white">
-                Journey
-              </h2>
-              <div className="mt-4 md:mt-6">
-                <JourneyTimeline />
+                  <Separator className="bg-terminal-green-dark opacity-30" />
+
+                  {/* Skills */}
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <span className="text-terminal-green-medium">$</span>
+                      <span className="text-terminal-green-bright font-mono">cat skills.txt</span>
+                    </div>
+                    <div className="ml-6">
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">Python</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">JavaScript</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">Kotlin</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">Java</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">C</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">RAG</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">LangGraph</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">Agentic AI</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">Speech AI</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono">GPT-Realtime</Badge>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </section>
 
-            {/* Footer */}
-            <footer className="w-full max-w-6xl mx-auto text-center fade-in-up stagger-4">
-              <Separator className="mb-6 md:mb-8 bg-gray-700" />
-              <div className="flex flex-col items-center gap-3 md:gap-4">
-                <img
-                  src="/logo_inverted.png"
-                  alt="Akshath Yennam Logo"
-                  className="w-10 h-10 md:w-12 md:h-12 object-contain opacity-80"
-                />
-                <p className="text-xs md:text-sm text-gray-400 px-4">
-                  © 2025 Akshath. All rights reserved.
+              {/* Scroll indicator */}
+              <div className="text-center">
+                <p className="text-terminal-green-dark font-mono text-sm animate-pulse">
+                  ▼ scroll down for more ▼
                 </p>
               </div>
-            </footer>
+            </div>
+          </section>
 
+          {/* Content sections with terminal styling */}
+          <div className="relative">
+            <div className="container mx-auto px-3 md:px-4 pb-8 md:pb-16 max-w-6xl">
+              {/* Experience Section */}
+              <section id="experience" className="w-full mx-auto mb-16 md:mb-24 fade-in-up stagger-1">
+                <div className="mb-8 md:mb-12">
+                  <h2 className="text-3xl md:text-4xl font-bold font-mono text-terminal-green-bright mb-3">
+                    Experience
+                  </h2>
+                  <div className="h-0.5 bg-terminal-green-dark opacity-30" />
+                </div>
+                <ExperienceTabs />
+              </section>
+
+              {/* Projects Section */}
+              <section id="projects" className="w-full mx-auto mb-16 md:mb-24 fade-in-up stagger-2">
+                <div className="mb-8 md:mb-12">
+                  <h2 className="text-3xl md:text-4xl font-bold font-mono text-terminal-green-bright mb-3">
+                    Projects
+                  </h2>
+                  <div className="h-0.5 bg-terminal-green-dark opacity-30" />
+                </div>
+                <ProjectGrid />
+              </section>
+
+              {/* Journey Section */}
+              <section id="journey" className="w-full mx-auto mb-12 md:mb-16 fade-in-up stagger-3">
+                <div className="mb-8 md:mb-12">
+                  <h2 className="text-3xl md:text-4xl font-bold font-mono text-terminal-green-bright mb-3">
+                    Journey
+                  </h2>
+                  <div className="h-0.5 bg-terminal-green-dark opacity-30" />
+                </div>
+                <JourneyTimeline />
+              </section>
+
+            </div>
           </div>
+
+          {/* Footer - Full Width */}
+          <footer className="w-full mt-16 border-t border-terminal-green-dark/30 bg-black/50 backdrop-blur-sm">
+            <div className="container mx-auto px-4 py-6 text-center">
+              <p className="text-terminal-green-medium text-sm font-mono">
+                © 2025 Akshath Yennam. All rights reserved.
+              </p>
+            </div>
+          </footer>
         </div>
-      </div>
-    </main>
+      </main>
     </ScrollAnimationProvider>
   );
 }

@@ -82,10 +82,10 @@ const journeyEntries: JourneyEntry[] = [
 ];
 
 const typeColors = {
-  education: "oklch(0.70 0.18 190)", // aqua
-  work: "oklch(0.65 0.26 340)", // magenta
-  achievement: "oklch(0.55 0.22 290)", // purple
-  project: "oklch(0.60 0.18 190)" // lighter aqua
+  education: "#00ff41", // bright matrix green
+  work: "#00cc33", // medium green
+  achievement: "#39ff14", // bright highlight green
+  project: "#00aa2e" // darker green
 };
 
 const typeLabels = {
@@ -133,12 +133,16 @@ export function JourneyTimeline() {
   return (
     <div className="relative max-w-6xl mx-auto">
       {/* Central Timeline line - visible on desktop, hidden on mobile */}
-      <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-gray-400/50 to-transparent transform -translate-x-px"></div>
-      
-      {/* Mobile timeline line - left side - behind cards - stronger in middle, fades at ends */}
-      <div className="md:hidden absolute left-0 top-0 bottom-0 w-0.5 z-0"
+      <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 transform -translate-x-1/2"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(112, 182, 246, 0.15) 5%, rgba(112, 182, 246, 0.5) 15%, rgba(112, 182, 246, 0.6) 50%, rgba(112, 182, 246, 0.5) 85%, rgba(112, 182, 246, 0.15) 95%, transparent 100%)'
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 255, 65, 0.3) 5%, rgba(0, 255, 65, 0.5) 15%, rgba(0, 255, 65, 0.6) 50%, rgba(0, 255, 65, 0.5) 85%, rgba(0, 255, 65, 0.3) 95%, transparent 100%)'
+        }}
+      ></div>
+
+      {/* Mobile timeline line - left side - behind cards */}
+      <div className="md:hidden absolute left-0 top-0 bottom-0 w-1 z-0"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 255, 65, 0.2) 5%, rgba(0, 255, 65, 0.4) 15%, rgba(0, 255, 65, 0.5) 50%, rgba(0, 255, 65, 0.4) 85%, rgba(0, 255, 65, 0.2) 95%, transparent 100%)'
         }}
       ></div>
 
@@ -174,49 +178,49 @@ export function JourneyTimeline() {
                 <>
                   {/* Journey Card - Left side */}
                   <div className="w-full md:w-5/12 order-2 md:order-1 relative z-10">
-                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300 mt-0 md:mr-16 md:mt-0">
+                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300 mt-0 md:mr-16 md:mt-0 font-mono">
                       <CardHeader className="pb-2 p-3 md:pb-3 md:p-6">
                         <div className="flex items-start justify-between gap-2">
                           <div className="flex-1">
                             {/* Period inside card on mobile, hidden on desktop */}
                             <div className="block md:hidden text-sm font-semibold mb-1.5"
                               style={{ color: typeColors[entry.type] }}>
-                              {entry.period}
+                              [{entry.period}]
                             </div>
-                            <CardTitle className="text-base md:text-xl text-white mb-1.5 md:mb-2 group-hover:text-gray-200 transition-colors leading-tight">
-                              {entry.title}
+                            <CardTitle className="text-base md:text-xl text-terminal-green-bright mb-1.5 md:mb-2 group-hover:text-terminal-green-bright transition-colors leading-tight">
+                              &gt; {entry.title}
                             </CardTitle>
-                            <p className="text-gray-300 text-sm md:text-base font-medium mb-1.5 md:mb-1">
-                              {entry.organization}
+                            <p className="text-terminal-green-medium text-sm md:text-base font-medium mb-1.5 md:mb-1">
+                              @ {entry.organization}
                             </p>
                             <Badge
                               variant="outline"
-                              className="text-xs px-2 py-0.5 md:px-3 md:py-1 border-opacity-50 transition-all duration-300 group-hover:border-opacity-100 mt-1 md:mt-2"
+                              className="text-xs px-2 py-0.5 md:px-3 md:py-1 border-opacity-70 transition-all duration-300 group-hover:border-opacity-100 mt-1 md:mt-2 font-mono"
                               style={{
                                 borderColor: typeColors[entry.type],
                                 color: typeColors[entry.type]
                               }}
                             >
-                              {typeLabels[entry.type]}
+                              [{typeLabels[entry.type].toUpperCase()}]
                             </Badge>
                           </div>
                         </div>
                       </CardHeader>
 
                       <CardContent className="pt-0 p-3 md:p-6 md:pt-0">
-                        <p className="text-gray-300 text-xs md:text-base mb-2 md:mb-4 leading-relaxed">
+                        <p className="text-terminal-green-medium text-xs md:text-sm mb-2 md:mb-4 leading-relaxed">
                           {entry.description}
                         </p>
 
                         {entry.technologies && entry.technologies.length > 0 && (
                           <>
-                            <Separator className="mb-4 bg-gray-700" />
+                            <Separator className="mb-4 bg-terminal-green-dark opacity-30" />
                             <div className="flex flex-wrap gap-2">
                               {entry.technologies.map((tech) => (
                                 <Badge
                                   key={tech}
                                   variant="outline"
-                                  className="text-sm px-3 py-1 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300"
+                                  className="text-xs px-2 py-0.5 border-terminal-green-dark text-terminal-green-medium hover:bg-terminal-green-medium hover:text-black transition-all duration-300 font-mono"
                                 >
                                   {tech}
                                 </Badge>
@@ -267,8 +271,8 @@ export function JourneyTimeline() {
 
                   {/* Year/Period - Right side - hidden on mobile, visible on desktop */}
                   <div className="hidden md:block md:w-5/12 md:text-left md:pl-16 md:order-3">
-                    <div className="md:text-2xl md:font-bold md:text-white md:mb-2">
-                      {entry.period}
+                    <div className="md:text-2xl md:font-bold text-terminal-green-bright md:mb-2 font-mono">
+                      [{entry.period}]
                     </div>
                   </div>
                 </>
@@ -279,8 +283,8 @@ export function JourneyTimeline() {
                 <>
                   {/* Year/Period - Left side - hidden on mobile, visible on desktop */}
                   <div className="hidden md:block md:w-5/12 md:text-right md:pr-16 md:order-1">
-                    <div className="md:text-2xl md:font-bold md:text-white md:mb-2">
-                      {entry.period}
+                    <div className="md:text-2xl md:font-bold text-terminal-green-bright md:mb-2 font-mono">
+                      [{entry.period}]
                     </div>
                   </div>
 
@@ -323,49 +327,49 @@ export function JourneyTimeline() {
 
                   {/* Journey Card - Right side */}
                   <div className="w-full md:w-5/12 pl-0 md:pl-16 order-2 md:order-3 relative z-10">
-                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300 mt-0 md:mt-0">
+                    <Card className="layered-section-card hover:scale-[1.02] transition-all duration-300 mt-0 md:mt-0 font-mono">
                       <CardHeader className="pb-2 p-3 md:pb-3 md:p-6">
                         <div className="flex items-start justify-between gap-2">
                           <div className="flex-1">
                             {/* Period inside card on mobile, hidden on desktop */}
                             <div className="block md:hidden text-sm font-semibold mb-1.5"
                               style={{ color: typeColors[entry.type] }}>
-                              {entry.period}
+                              [{entry.period}]
                             </div>
-                            <CardTitle className="text-base md:text-xl text-white mb-1.5 md:mb-2 group-hover:text-gray-200 transition-colors leading-tight">
-                              {entry.title}
+                            <CardTitle className="text-base md:text-xl text-terminal-green-bright mb-1.5 md:mb-2 group-hover:text-terminal-green-bright transition-colors leading-tight">
+                              &gt; {entry.title}
                             </CardTitle>
-                            <p className="text-gray-300 text-sm md:text-base font-medium mb-1.5 md:mb-1">
-                              {entry.organization}
+                            <p className="text-terminal-green-medium text-sm md:text-base font-medium mb-1.5 md:mb-1">
+                              @ {entry.organization}
                             </p>
                             <Badge
                               variant="outline"
-                              className="text-xs px-2 py-0.5 md:px-3 md:py-1 border-opacity-50 transition-all duration-300 group-hover:border-opacity-100 mt-1 md:mt-2"
+                              className="text-xs px-2 py-0.5 md:px-3 md:py-1 border-opacity-70 transition-all duration-300 group-hover:border-opacity-100 mt-1 md:mt-2 font-mono"
                               style={{
                                 borderColor: typeColors[entry.type],
                                 color: typeColors[entry.type]
                               }}
                             >
-                              {typeLabels[entry.type]}
+                              [{typeLabels[entry.type].toUpperCase()}]
                             </Badge>
                           </div>
                         </div>
                       </CardHeader>
 
                       <CardContent className="pt-0 p-3 md:p-6 md:pt-0">
-                        <p className="text-gray-300 text-xs md:text-base mb-2 md:mb-4 leading-relaxed">
+                        <p className="text-terminal-green-medium text-xs md:text-sm mb-2 md:mb-4 leading-relaxed">
                           {entry.description}
                         </p>
 
                         {entry.technologies && entry.technologies.length > 0 && (
                           <>
-                            <Separator className="mb-4 bg-gray-700" />
+                            <Separator className="mb-4 bg-terminal-green-dark opacity-30" />
                             <div className="flex flex-wrap gap-2">
                               {entry.technologies.map((tech) => (
                                 <Badge
                                   key={tech}
                                   variant="outline"
-                                  className="text-sm px-3 py-1 border-primary text-white hover:bg-primary hover:border-accent hover:text-black transition-all duration-300"
+                                  className="text-xs px-2 py-0.5 border-terminal-green-dark text-terminal-green-medium hover:bg-terminal-green-medium hover:text-black transition-all duration-300 font-mono"
                                 >
                                   {tech}
                                 </Badge>

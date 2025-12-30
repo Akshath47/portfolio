@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { TerminalWindow } from "@/components/ui/terminal-window";
+import { Badge } from "@/components/ui/badge";
 
 interface Project {
   id: string;
@@ -49,92 +50,10 @@ const projects: Project[] = [
   }
 ];
 
-export function ProjectCarousel() {
-  const [translateX, setTranslateX] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(true);
+export function ProjectGrid() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number | null>(null);
 
-  // Dynamically measured spacing between consecutive cards (in px)
-  const [step, setStep] = useState(320);
-  const [loopWidth, setLoopWidth] = useState(projects.length * 320);
-  const loggedMeasurementRef = useRef(false);
-
-  useEffect(() => {
-    if (!isAnimating) return;
-
-    const animate = () => {
-      setTranslateX(prev => {
-        const next = prev - 1;
-        if (next <= -loopWidth) {
-          const wrapped = next + loopWidth;
-          return wrapped;
-        }
-        return next;
-      });
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [isAnimating, loopWidth]);
-
-  // Measure step and loop width from DOM
-  useEffect(() => {
-    const measure = () => {
-      const inner = innerRef.current;
-      if (!inner) return;
-      const cards = Array.from(inner.querySelectorAll('.project-card-infinite')) as HTMLElement[];
-      if (cards.length >= 2) {
-        const r1 = cards[0].getBoundingClientRect();
-        const r2 = cards[1].getBoundingClientRect();
-        const measuredStep = r2.left - r1.left;
-        const cs = getComputedStyle(inner);
-        const gapStr = cs.columnGap || cs.gap || '0px';
-        const gap = parseFloat(gapStr);
-        const measuredWidth = cards[0].getBoundingClientRect().width;
-        const computedLoopWidth = measuredStep * projects.length;
-        setStep(measuredStep);
-        setLoopWidth(computedLoopWidth);
-        if (!loggedMeasurementRef.current) {
-          console.debug('[ProjectCarousel] measure', {
-            measuredWidth: Math.round(measuredWidth * 100) / 100,
-            gap,
-            measuredStep: Math.round(measuredStep * 100) / 100,
-            loopWidth: Math.round(computedLoopWidth * 100) / 100,
-            count: projects.length
-          });
-          loggedMeasurementRef.current = true;
-        }
-      }
-    };
-    // measure after paint to ensure layout is ready
-    requestAnimationFrame(measure);
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, []);
-
-  // Create exactly 2 copies - one visible, one ready to replace
-  const infiniteProjects = [...projects, ...projects];
-
-  // Calculate which card is currently in the center for dot indicators
-  const getCenterIndex = () => {
-    const adjusted = Math.abs(translateX) % loopWidth;
-    return Math.round(adjusted / step) % projects.length;
-  };
-
-  const centerIndex = getCenterIndex();
-
-  const handleCardClick = (project: Project, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleCardClick = (project: Project) => {
     setSelectedProject(project);
   };
 
@@ -142,69 +61,64 @@ export function ProjectCarousel() {
     setSelectedProject(null);
   };
 
-  // Pause animation only when hovering over project cards
-  const handleCardMouseEnter = () => setIsAnimating(false);
-  const handleCardMouseLeave = () => setIsAnimating(true);
-
   return (
     <div className="w-full">
-      <div className="project-carousel-container">
-        <div className="project-carousel-track" ref={containerRef}>
+      {/* Project Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        {projects.map((project) => (
           <div
-            className="project-carousel-inner"
-            ref={innerRef}
-            style={{
-              transform: `translateX(${translateX}px)`,
-              transition: 'none'
-            }}
+            key={project.id}
+            className="cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+            onClick={() => handleCardClick(project)}
           >
-            {infiniteProjects.map((project, index) => (
-              <div
-                key={`${project.id}-${index}`}
-                className="project-card-infinite cursor-pointer flex-shrink-0"
-                onClick={(e) => handleCardClick(project, e)}
-                onMouseEnter={handleCardMouseEnter}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <TerminalWindow
-                  title={`${project.title.toLowerCase().replace(/\s+/g, '-')}.exe`}
-                  className="w-[300px] h-full"
-                >
-                  <div className="space-y-3">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      width={300}
-                      height={180}
-                      className="rounded object-cover w-full h-36 md:h-40 border border-terminal-green-dark"
-                    />
-                    <div className="space-y-2">
-                      <div className="flex items-start gap-2">
-                        <span className="text-terminal-green-medium flex-shrink-0">&gt;</span>
-                        <h3 className="text-base md:text-lg font-bold text-terminal-green-bright font-mono">
-                          {project.title}
-                        </h3>
-                      </div>
-                      <p className="text-xs md:text-sm text-terminal-green-medium ml-5">
-                        {project.description}
-                      </p>
-                      <div className="flex items-center gap-2 ml-5 mt-3">
-                        <span className="text-terminal-green-dark text-xs">[</span>
-                        <span className="text-terminal-green-medium text-xs animate-pulse">
-                          click for details
-                        </span>
-                        <span className="text-terminal-green-dark text-xs">]</span>
-                      </div>
-                    </div>
+            <TerminalWindow
+              title={`${project.title.toLowerCase().replace(/\s+/g, '-')}.exe`}
+              className="h-full"
+            >
+              <div className="space-y-3">
+                <div className="rounded overflow-hidden border border-terminal-green-dark/30">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={400}
+                    height={250}
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg md:text-xl font-bold text-terminal-green-bright font-mono">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-terminal-green-medium leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {project.technologies.slice(0, 3).map((tech, index) => (
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="text-xs px-2 py-0.5 border-terminal-green-dark/50 text-terminal-green-dark hover:bg-terminal-green-dark hover:text-black font-mono"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                    {project.technologies.length > 3 && (
+                      <Badge
+                        variant="outline"
+                        className="text-xs px-2 py-0.5 border-terminal-green-dark/50 text-terminal-green-dark font-mono"
+                      >
+                        +{project.technologies.length - 3}
+                      </Badge>
+                    )}
                   </div>
-                </TerminalWindow>
+                </div>
               </div>
-            ))}
+            </TerminalWindow>
           </div>
-        </div>
+        ))}
       </div>
 
-      {/* Single Dialog outside the carousel */}
+      {/* Project Details Dialog */}
       <Dialog modal={false} open={selectedProject !== null} onOpenChange={(open) => {
         if (!open) handleCloseDialog();
       }}>
@@ -267,21 +181,6 @@ export function ProjectCarousel() {
           )}
         </DialogContent>
       </Dialog>
-
-      <div className="carousel-controls mt-4 md:mt-2">
-        {projects.map((_, index) => (
-          <button
-            key={index}
-            className={`carousel-dot ${index === centerIndex ? 'active' : ''}`}
-            onClick={() => {
-              // Optional: Allow clicking dots to jump to specific project
-              const targetTranslateX = -(index * step);
-              setTranslateX(targetTranslateX);
-            }}
-            aria-label={`Go to project ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   );
 }
