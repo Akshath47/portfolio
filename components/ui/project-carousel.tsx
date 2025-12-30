@@ -189,11 +189,11 @@ export function ProjectCarousel() {
                         {project.description}
                       </p>
                       <div className="flex items-center gap-2 ml-5 mt-3">
-                        <span className="text-terminal-green-dark text-xs">[</span>
-                        <span className="text-terminal-green-medium text-xs animate-pulse">
+                        <span className="text-terminal-green-medium text-xs">[</span>
+                        <span className="text-terminal-green-bright text-sm animate-pulse font-mono">
                           click for details
                         </span>
-                        <span className="text-terminal-green-dark text-xs">]</span>
+                        <span className="text-terminal-green-medium text-xs">]</span>
                       </div>
                     </div>
                   </div>
@@ -228,9 +228,10 @@ export function ProjectCarousel() {
 
               {/* Project Details - Before Image */}
               <div>
-                <h3 className="text-lg font-semibold text-terminal-green-bright mb-3 font-mono">
+                <h3 className="text-lg font-semibold text-terminal-green-bright mb-2 font-mono">
                   Details
                 </h3>
+                <div className="subsection-hr mb-3" />
                 <p className="text-terminal-green-medium text-sm md:text-base leading-relaxed">
                   {selectedProject.details}
                 </p>
@@ -238,9 +239,10 @@ export function ProjectCarousel() {
 
               {/* Technologies */}
               <div>
-                <h3 className="text-lg font-semibold text-terminal-green-bright mb-3 font-mono">
+                <h3 className="text-lg font-semibold text-terminal-green-bright mb-2 font-mono">
                   Technologies
                 </h3>
+                <div className="subsection-hr mb-3" />
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.technologies.map((tech, index) => (
                     <span

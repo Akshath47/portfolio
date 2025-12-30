@@ -64,7 +64,7 @@ export function ProjectGrid() {
   return (
     <div className="w-full">
       {/* Project Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
         {projects.map((project) => (
           <div
             key={project.id}
@@ -75,24 +75,24 @@ export function ProjectGrid() {
               title={`${project.title.toLowerCase().replace(/\s+/g, '-')}.exe`}
               className="h-full"
             >
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 <div className="rounded overflow-hidden border border-terminal-green-dark/30">
                   <Image
                     src={project.image}
                     alt={project.title}
                     width={400}
                     height={250}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-40 sm:h-44 md:h-48 object-cover"
                   />
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg md:text-xl font-bold text-terminal-green-bright font-mono">
+                <div className="space-y-1.5 md:space-y-2">
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-terminal-green-bright font-mono leading-tight">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-terminal-green-medium leading-relaxed">
+                  <p className="text-xs sm:text-sm text-terminal-green-medium leading-relaxed">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-1.5 pt-2">
+                  <div className="flex flex-wrap gap-1 md:gap-1.5 pt-1.5 md:pt-2">
                     {project.technologies.slice(0, 3).map((tech, index) => (
                       <Badge
                         key={index}
@@ -111,6 +111,13 @@ export function ProjectGrid() {
                       </Badge>
                     )}
                   </div>
+                  <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-terminal-green-dark/30 flex items-center gap-2">
+                    <span className="text-terminal-green-medium text-xs">[</span>
+                    <span className="text-terminal-green-bright text-xs md:text-sm animate-pulse font-mono">
+                      click for details
+                    </span>
+                    <span className="text-terminal-green-medium text-xs">]</span>
+                  </div>
                 </div>
               </div>
             </TerminalWindow>
@@ -122,62 +129,70 @@ export function ProjectGrid() {
       <Dialog modal={false} open={selectedProject !== null} onOpenChange={(open) => {
         if (!open) handleCloseDialog();
       }}>
-        <DialogContent className="max-w-[95vw] md:max-w-4xl max-h-[90vh] overflow-y-auto bg-black/95 backdrop-blur-sm border-2 border-terminal-green-medium/40 rounded-lg [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded p-6">
+        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[85vh] bg-transparent border-none p-3 sm:p-4 md:p-5 lg:p-6 overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">
               {selectedProject?.title || "Project Details"}
             </DialogTitle>
           </DialogHeader>
           {selectedProject && (
-            <div className="space-y-6">
-              {/* Project Title */}
-              <div className="border-b border-terminal-green-dark/30 pb-4">
-                <h2 className="text-2xl md:text-3xl font-bold text-terminal-green-bright font-mono mb-2">
-                  {selectedProject.title}
-                </h2>
-                <p className="text-terminal-green-medium text-sm md:text-base">
-                  {selectedProject.description}
-                </p>
-              </div>
+            <TerminalWindow
+              title={`${selectedProject.title.toLowerCase().replace(/\s+/g, '-')}-details.exe`}
+              className="h-full flex flex-col"
+            >
+              <div className="space-y-3 overflow-y-auto flex-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded">
+                {/* Project Title */}
+                <div className="border-b border-terminal-green-dark/30 pb-3">
+                  <h2 className="text-xl md:text-2xl font-bold text-terminal-green-bright font-mono mb-1">
+                    {selectedProject.title}
+                  </h2>
+                  <p className="text-terminal-green-medium text-xs md:text-sm">
+                    {selectedProject.description}
+                  </p>
+                </div>
 
-              {/* Project Details - Before Image */}
-              <div>
-                <h3 className="text-lg font-semibold text-terminal-green-bright mb-3 font-mono">
-                  Details
-                </h3>
-                <p className="text-terminal-green-medium text-sm md:text-base leading-relaxed">
-                  {selectedProject.details}
-                </p>
-              </div>
+                {/* Project Details */}
+                <div>
+                  <h3 className="text-base font-semibold text-terminal-green-bright mb-1 font-mono">
+                    Details
+                  </h3>
+                  <div className="subsection-hr mb-2" />
+                  <p className="text-terminal-green-medium text-xs md:text-sm leading-relaxed">
+                    {selectedProject.details}
+                  </p>
+                </div>
 
-              {/* Technologies */}
-              <div>
-                <h3 className="text-lg font-semibold text-terminal-green-bright mb-3 font-mono">
-                  Technologies
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1.5 bg-transparent text-terminal-green-medium border border-terminal-green-dark/50 rounded text-xs md:text-sm hover:bg-terminal-green-medium hover:text-black hover:border-terminal-green-medium transition-all duration-300 font-mono"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                {/* Technologies */}
+                <div>
+                  <h3 className="text-base font-semibold text-terminal-green-bright mb-1 font-mono">
+                    Technologies
+                  </h3>
+                  <div className="subsection-hr mb-2" />
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="text-xs px-2 py-1 border-terminal-green-dark/50 text-terminal-green-medium hover:bg-terminal-green-medium hover:text-black hover:border-terminal-green-medium transition-all duration-300 font-mono"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Project Image - At Bottom, Smaller */}
+                <div className="rounded-lg overflow-hidden border border-terminal-green-dark/30">
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    width={600}
+                    height={300}
+                    className="w-full h-40 md:h-48 object-cover"
+                  />
                 </div>
               </div>
-
-              {/* Project Image - At Bottom, Smaller */}
-              <div className="rounded-lg overflow-hidden border border-terminal-green-dark/30">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  width={600}
-                  height={300}
-                  className="w-full h-48 md:h-64 object-cover"
-                />
-              </div>
-            </div>
+            </TerminalWindow>
           )}
         </DialogContent>
       </Dialog>
