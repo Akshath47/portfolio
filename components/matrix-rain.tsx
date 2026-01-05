@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isIntense, setIsIntense] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -19,6 +20,13 @@ export function MatrixRain() {
     };
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
+
+    // Listen for matrix effect trigger
+    const handleMatrixEffect = () => {
+      setIsIntense(true);
+      setTimeout(() => setIsIntense(false), 5000);
+    };
+    window.addEventListener("triggerMatrixEffect", handleMatrixEffect);
 
     // Matrix characters - mixture of Latin letters, numbers, and some symbols
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?";
@@ -39,8 +47,8 @@ export function MatrixRain() {
     }
 
     const draw = () => {
-      // Add slight fade effect to create trails
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      // Add slight fade effect to create trails (faster fade in intense mode)
+      ctx.fillStyle = isIntense ? "rgba(0, 0, 0, 0.03)" : "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = `${fontSize}px monospace`;
@@ -53,17 +61,19 @@ export function MatrixRain() {
 
         // Determine color based on position and bright head status
         if (brightHeads[i] && y === drops[i] * fontSize) {
-          // Bright head - very bright green
+          // Bright head - very bright green (more intense in intense mode)
           ctx.fillStyle = "#00ff41";
-          ctx.shadowBlur = 10;
+          ctx.shadowBlur = isIntense ? 20 : 10;
           ctx.shadowColor = "#00ff41";
         } else {
           // Calculate opacity based on how far behind the head this is
           const distanceFromHead = drops[i] * fontSize - y;
           const opacity = Math.max(0.1, 1 - (distanceFromHead / (fontSize * 15)));
 
-          // Darker green for trailing characters
-          ctx.fillStyle = `rgba(0, 204, 51, ${opacity})`;
+          // Darker green for trailing characters (brighter in intense mode)
+          ctx.fillStyle = isIntense
+            ? `rgba(0, 255, 65, ${opacity * 1.5})`
+            : `rgba(0, 204, 51, ${opacity})`;
           ctx.shadowBlur = 0;
         }
 
@@ -72,13 +82,16 @@ export function MatrixRain() {
         // Reset shadow for next iteration
         ctx.shadowBlur = 0;
 
-        // Move drop down
-        if (y > canvas.height && Math.random() > 0.975) {
+        // Move drop down (faster in intense mode, more columns reset)
+        const speed = isIntense ? 2 : 1;
+        const resetChance = isIntense ? 0.95 : 0.975;
+
+        if (y > canvas.height && Math.random() > resetChance) {
           drops[i] = 0;
-          // Randomly assign bright head
-          brightHeads[i] = Math.random() > 0.7;
+          // In intense mode, all columns have bright heads
+          brightHeads[i] = isIntense ? true : Math.random() > 0.7;
         }
-        drops[i]++;
+        drops[i] += speed;
       }
     };
 
@@ -88,15 +101,16 @@ export function MatrixRain() {
     return () => {
       clearInterval(interval);
       window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("triggerMatrixEffect", handleMatrixEffect);
     };
-  }, []);
+  }, [isIntense]);
 
   return (
     <div className="matrix-rain">
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ opacity: 0.6 }}
+        className="absolute inset-0 w-full h-full transition-opacity duration-500"
+        style={{ opacity: isIntense ? 0.9 : 0.6 }}
       />
     </div>
   );

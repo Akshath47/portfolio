@@ -9,6 +9,7 @@ import { ExperienceTabs } from "@/components/ui/experience-tabs";
 import { JourneyTimeline } from "@/components/ui/journey-timeline";
 import { ScrollAnimationProvider } from "@/components/ui/scroll-animations";
 import { MatrixRain } from "@/components/matrix-rain";
+import { InteractiveTerminal } from "@/components/interactive-terminal";
 import "react-vertical-timeline-component/style.min.css";
 
 export default function Home() {
@@ -105,7 +106,7 @@ export default function Home() {
                     <div className="ml-4 md:ml-6">
                       <div className="flex flex-col sm:flex-row gap-2">
                         <Button asChild className="secondary-button w-full sm:w-auto text-xs sm:text-sm">
-                          <a href="/Akshath_Yennam_CV.pdf" target="_blank" rel="noopener noreferrer">
+                          <a href="/AkshathYennam_CV.pdf" target="_blank" rel="noopener noreferrer">
                             [ RESUME.PDF ]
                           </a>
                         </Button>
@@ -206,6 +207,9 @@ export default function Home() {
             </div>
           </footer>
         </div>
+
+        {/* Interactive Terminal */}
+        <InteractiveTerminal />
       </main>
     </ScrollAnimationProvider>
   );
