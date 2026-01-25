@@ -46,7 +46,7 @@ const experiences: Experience[] = [
     period: "Jul 2025 – Sep 2025",
     location: "Hyderabad, India",
     description: (
-      <div className="space-y-2 text-xs">
+      <div className="space-y-2">
         <p>• Reworked a JD-to-resume semantic search system using vector embeddings and Qdrant, improving accuracy and scalability</p>
         <p>• Optimized query efficiency through caching and tuning, reducing response times from ~90s to ~6s</p>
         <p>• Built a real-time voice interviewer on GPT-Realtime with multi-agent architecture for phase control</p>
@@ -72,7 +72,7 @@ const experiences: Experience[] = [
     period: "Jul 2023 – Aug 2023",
     location: "Hyderabad, India",
     description: (
-      <div className="space-y-1 text-xs">
+      <div className="space-y-1">
         <p>• Introduced to machine learning, working on regression and clustering models</p>
         <p>• Explored transformers and natural language processing fundamentals</p>
         <p>• Worked on sentiment analysis and text classification with unlabelled data</p>
@@ -149,13 +149,18 @@ function ExperienceCard({ experience }: { experience: Experience }) {
       </div>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen} modal={false}>
-        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[85vh] bg-transparent border-none p-3 sm:p-4 md:p-5 lg:p-6 overflow-hidden flex flex-col">
+        <DialogContent
+          showCloseButton={false}
+          onOpenAutoFocus={(event) => event.preventDefault()}
+          className="max-w-[95vw] sm:max-w-[90vw] md:max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[85vh] bg-transparent border-none p-3 sm:p-4 md:p-5 lg:p-6 overflow-hidden flex flex-col"
+        >
           <DialogHeader className="sr-only">
             <DialogTitle>{experience.title}</DialogTitle>
           </DialogHeader>
           <TerminalWindow
             title={`${experience.company.toLowerCase().replace(/\s+/g, '-')}-${experience.id}-details`}
             className="h-full flex flex-col"
+            onClose={() => setIsOpen(false)}
           >
             <div className="space-y-3 overflow-y-auto flex-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded">
               {/* Experience Title */}

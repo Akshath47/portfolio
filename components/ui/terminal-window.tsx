@@ -7,6 +7,7 @@ interface TerminalWindowProps {
   children: ReactNode;
   className?: string;
   showButtons?: boolean;
+  onClose?: () => void;
 }
 
 export function TerminalWindow({
@@ -14,12 +15,22 @@ export function TerminalWindow({
   children,
   className = "",
   showButtons = true,
+  onClose,
 }: TerminalWindowProps) {
   return (
     <div className={`terminal-window ${className}`}>
       {showButtons && (
         <div className="terminal-header">
-          <div className="terminal-button" />
+          {onClose ? (
+            <button
+              type="button"
+              aria-label="Close window"
+              className="terminal-button terminal-button-close cursor-pointer hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-terminal-green-medium focus:ring-offset-0"
+              onClick={onClose}
+            />
+          ) : (
+            <div className="terminal-button" />
+          )}
           <div className="terminal-button" />
           <div className="terminal-button" />
           {title && <span className="terminal-title ml-2">{title}</span>}

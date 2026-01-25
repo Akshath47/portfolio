@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { TerminalWindow } from "@/components/ui/terminal-window";
@@ -10,9 +10,11 @@ import { Button } from "@/components/ui/button";
 interface Project {
   id: string;
   title: string;
+  summary: string;
   description: string;
   image: string;
   details: string;
+  fullDetails?: string;
   technologies: string[];
   github: boolean;
   codeUrl?: string;
@@ -20,13 +22,20 @@ interface Project {
   buttonText?: string;
 }
 
+const formatText = (text: string) =>
+  text
+    .split(/\r?\n+/)
+    .map(chunk => chunk.trim())
+    .filter(Boolean);
+
 const projects: Project[] = [
   {
     id: "1",
     title: "Deep Research Agent",
+    summary: "An autonomous AI system that can take a high-level research question and independently explore it end to end. The agent breaks problems down, searches the web in parallel, verifies information, and produces structured, citation-backed outputs. Designed to mimic how a human researcher explores complex topics, but at scale.",
     description: "An AI agent that autonomously researches topics using web scraping and LLMs.",
     image: "/img_deep_research.png",
-    details: "A multi-agent research workflow built with LangGraph and the DeepAgents library that autonomously explores complex topics. The system decomposes each query into sub-questions, performs parallelized searches, fact-checks retrieved information, and synthesizes structured, citation-backed summaries. Designed with modular nodes for decomposition, retrieval, verification, and synthesis, the agent demonstrates scalable orchestration across multiple reasoning paths. It was also tested on both short and long-form research prompts to evaluate factual consistency, synthesis quality, and depth of reasoning.",
+    details: "A multi-agent deep research system implemented using LangGraph, extending ideas from the DeepAgents library. The system orchestrates a set of specialized agents that collaborate over a shared virtual filesystem to perform end-to-end research workflows.\n\nThe architecture consists of distinct agents with clearly scoped responsibilities: a Clarifier agent to identify ambiguities and request human input, a Decomposer to break queries into sub-questions, a Strategist to plan research steps, a Researcher hub to execute parallel web research, a Fact-Checker to validate claims and detect contradictions, a Synthesizer to generate structured reports with citations, and a Reviewer to perform final validation and gap analysis.\n\nAgents communicate through a shared state and a virtual filesystem abstraction, allowing intermediate artifacts such as notes, sources, and drafts to be written and read across stages. Research execution uses a parallel map–reduce pattern, where sub-questions are researched concurrently and merged into a unified result.\n\nThe workflow is implemented as a LangGraph graph with explicit stages and transitions. Human-in-the-loop clarification is supported through interruptible agents, allowing the workflow to pause and resume when additional input is required. Model selection is configurable per agent, enabling different language models and parameters to be assigned based on task requirements.\n\nThe system integrates external web search and scraping tools and produces structured, citation-backed research reports as final output. The application can be run via the LangGraph CLI or invoked programmatically as a compiled graph.",
     technologies: [
       "Python",
       "LangGraph",
@@ -44,10 +53,10 @@ const projects: Project[] = [
   {
     id: "2",
     title: "PintOS - Operating System",
+    summary: "An educational operating system project focused on implementing real kernel subsystems rather than writing user-space code. The project involved working directly with scheduling, memory management, and user-kernel interactions in low-level C.",
     description: "An educational operating system project implementing core kernel subsystems.",
     image: "/img_pintos.png",
-    details:
-      "An operating systems project based on the PintOS educational kernel, focused on implementing and extending core OS subsystems. I worked on thread scheduling, user process management, and virtual memory, handling kernel threads, page tables, and synchronization primitives. The project involved managing page faults, process lifecycles, and interactions between user programs and the kernel, strengthening my understanding of concurrency, memory management, and low-level debugging.",
+    details: "An operating systems project based on the PintOS educational kernel, implemented in C. The project involved modifying and extending core kernel subsystems including thread scheduling, user program execution, and virtual memory management.\n\nThread scheduling was implemented using priority-based scheduling, with kernel threads coordinated through synchronization primitives such as locks, semaphores, and condition variables. Scheduling logic manages thread states and context switching under concurrent workloads.\n\nUser program support includes loading and executing user-level programs, setting up user address spaces, and handling system calls. System call handling validates user-provided pointers, manages transitions between user mode and kernel mode, and coordinates process creation, waiting, and termination.\n\nThe virtual memory subsystem was extended to support paging with explicit frame allocation, eviction, and swapping. Physical frames are tracked using a frame table, and an enhanced clock hand algorithm is used during eviction to select victim frames under memory pressure. Evicted pages are written to swap space and restored on demand through page fault handling.\n\nPage faults are handled by determining the fault cause, validating memory accesses, and loading pages either from executable files or swap space. Page sharing is implemented to allow multiple processes to reference the same physical frame where appropriate, while keeping isolation via per-process page table mappings.\n\nMemory management operates directly on page tables, frame tables, and swap data structures to coordinate safe access to limited physical memory under concurrent kernel activity.",
     technologies: [
       "C",
       "Operating Systems",
@@ -65,9 +74,10 @@ const projects: Project[] = [
   {
     id: "3",
     title: "Stock Price Predictor",
+    summary: "A time-series forecasting model that predicts next-day stock prices using a stacked LSTM neural network. The model is trained on sliding windows of historical price data to capture temporal dependencies and generate short-term price predictions.",
     description: "A machine learning project that predicts stock prices using historical data.",
     image: "/img_stock_predictor.png",
-    details: "A machine learning project focused on forecasting stock prices using historical time-series data. Implemented with LSTM-based recurrent neural networks in TensorFlow, the model captures temporal dependencies and trends over multiple time horizons. Data preprocessing, feature scaling, and model evaluation were handled using Pandas, NumPy, and Scikit-learn. Visualization through Matplotlib highlighted prediction accuracy and loss trends across epochs, providing valuable insights into model behavior and overfitting control.",
+    details: "A time-series forecasting model implemented using a stacked LSTM architecture in TensorFlow to predict next-day stock prices from historical data. The model is trained on sliding windows of 60 consecutive days of price data, formatted as (samples, timesteps, features) for sequential learning.\n\nThe network consists of four stacked LSTM layers with 50 units each. The first three LSTM layers return sequences to allow deeper temporal feature extraction, while the final LSTM layer outputs a single hidden state. A Dropout layer with a rate of 0.2 follows each LSTM layer to reduce overfitting. The output layer is a Dense(1) layer with a linear activation function to perform regression.\n\nThe model is compiled using the Adam optimizer with mean squared error loss. Input data is preprocessed using scaling and reshaping utilities from Pandas, NumPy, and Scikit-learn. Training produces a predicted price curve that closely follows the underlying trend of the test data.\n\nModel performance is evaluated visually by plotting predicted prices against actual prices, along with short-term trend visualizations showing a rolling window of recent prices ending in the predicted next-day value.",
     technologies: [
       "Python",
       "TensorFlow",
@@ -85,9 +95,10 @@ const projects: Project[] = [
   {
     id: "4",
     title: "Emulator & Assembler with Audio Synth Extension",
+    summary: "A low-level systems project that simulates how a CPU executes programs, built entirely from scratch in C. The project was extended with a real-time audio synthesizer, combining systems programming with interactive I/O and sound generation.",
     description: "A low-level emulator and assembler built from scratch with a real-time audio extension.",
     image: "/img_audio_synth.png",
-    details: "A collaborative low-level systems project developed entirely in C, featuring a custom assembler and emulator that replicate a simplified CPU instruction set. The project implements instruction decoding, memory management, and register operations from the ground up. As an extension, an audio synthesizer was integrated, mapping keyboard inputs to tone generation at the hardware-interaction layer. This extension showcased real-time I/O handling, digital signal processing fundamentals, and creativity in combining systems programming with sound.",
+    details: "A low-level systems project implemented in C consisting of a custom assembler and an instruction-level emulator for a simplified instruction set. The assembler parses assembly source code and translates it into a structured instruction representation. This includes parsing opcodes and operands, resolving labels and symbols, validating instruction formats, and encoding instructions into a form suitable for execution by the emulator.\n\nThe emulator executes assembled programs by interpreting instructions sequentially and updating program state. It maintains execution state including registers, a program counter, and a simulated memory space. Arithmetic, control flow, and memory operations are implemented directly in software using C data structures.\n\nControl flow instructions modify execution by updating the program counter based on jumps and conditional branches. Memory instructions read from and write to a bounded memory model with explicit address validation and error handling.\n\nAn extension was implemented using SDL to integrate real-time audio synthesis into the emulator runtime. Keyboard input events are captured and mapped to sound generation, introducing event-driven I/O and real-time interaction alongside instruction execution.\n\nThe project focuses on instruction encoding, execution state management, control flow handling, and low-level execution logic within a single C codebase.",
     technologies: [
       "C",
       "Systems Programming",
@@ -105,9 +116,10 @@ const projects: Project[] = [
   {
     id: "5",
     title: "Summit - AI companion for planning & focus",
+    summary: "A conversational AI companion designed to help users plan tasks, stay focused, and manage priorities over time. Summit adapts its recommendations based on user context, goals, and past interactions, aiming to feel more like a persistent assistant than a stateless chatbot.",
     description: "An AI-powered companion designed to assist with planning and maintaining focus.",
     image: "/img_summit.png",
-    details: "Summit is a conversational multi-agent system that helps users plan tasks, manage focus, and track priorities. Built with LangGraph and powered by LLMs, it combines memory persistence, user profiling, and contextual reasoning to provide personalized guidance. The agent dynamically adjusts task recommendations based on urgency, energy, and goals, while maintaining continuity through stored context. Designed as an experiment in emotional and contextual adaptation, it blends productivity tools with conversational AI design principles.",
+    details: "A conversational task and scheduling assistant implemented using a multi-agent LangGraph workflow. The system supports natural language interaction for task management, scheduling, profile updates, and focus guidance, with persistent state maintained across conversations.\n\nSummit is structured as a graph of specialized agents coordinated by a central conversation router. User messages are first processed by a conversation agent, which parses intent and routes requests to dedicated agents responsible for task management, scheduling, profile updates, focus coaching, and instruction preferences. Outputs from these agents are combined by a response synthesizer to produce a single natural language reply.\n\nTask management includes creating, updating, and completing tasks via natural language input. Scheduling logic handles calendar events and deadlines, with task and event data stored using LangGraph’s memory system. User profile information and preferences are incrementally learned and stored, allowing behavior and responses to adapt over time.\n\nFocus coaching is implemented as a dedicated agent that generates suggestions based on inferred mood and energy levels. State and data flow between agents are defined using typed schemas and reducers to ensure consistent state updates across the workflow.\n\nThe project is implemented in Python and organized around a LangGraph graph definition, with separate modules for configuration, prompts, and state definitions. The application runs using the LangGraph CLI and currently uses an in-memory store for persistence, with planned migration to a database-backed store.",
     technologies: [
       "Python",
       "LangGraph",
@@ -126,6 +138,9 @@ const projects: Project[] = [
 
 export function ProjectGrid() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [detailsExpanded, setDetailsExpanded] = useState(false);
+  const detailsScrollRef = useRef<HTMLDivElement | null>(null);
+  const [thumbStyle, setThumbStyle] = useState({ height: 0, top: 0 });
 
   const handleCardClick = (project: Project) => {
     setSelectedProject(project);
@@ -134,6 +149,35 @@ export function ProjectGrid() {
   const handleCloseDialog = () => {
     setSelectedProject(null);
   };
+
+  useEffect(() => {
+    setDetailsExpanded(false);
+  }, [selectedProject]);
+
+  useEffect(() => {
+    const el = detailsScrollRef.current;
+    if (!el) return;
+
+    const updateThumb = () => {
+      const { clientHeight, scrollHeight, scrollTop } = el;
+      if (scrollHeight === 0) return;
+      const trackHeight = clientHeight;
+      const thumbHeight = Math.max((clientHeight / scrollHeight) * trackHeight, 18);
+      const maxTop = trackHeight - thumbHeight;
+      const top = scrollHeight > clientHeight ? (scrollTop / (scrollHeight - clientHeight)) * maxTop : 0;
+      setThumbStyle({ height: thumbHeight, top });
+    };
+
+    updateThumb();
+    el.addEventListener("scroll", updateThumb);
+    const resizeObserver = new ResizeObserver(updateThumb);
+    resizeObserver.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", updateThumb);
+      resizeObserver.disconnect();
+    };
+  }, [detailsExpanded, selectedProject]);
 
   return (
     <div className="w-full">
@@ -203,7 +247,11 @@ export function ProjectGrid() {
       <Dialog modal={false} open={selectedProject !== null} onOpenChange={(open) => {
         if (!open) handleCloseDialog();
       }}>
-        <DialogContent className="w-[96vw] max-w-screen-xl max-h-[95vh] bg-transparent border-none p-3 sm:p-4 md:p-5 lg:p-6 overflow-hidden flex flex-col">
+        <DialogContent
+          showCloseButton={false}
+          onOpenAutoFocus={(event) => event.preventDefault()}
+          className="w-[96vw] max-w-screen-xl max-h-[95vh] bg-transparent border-none p-3 sm:p-4 md:p-5 lg:p-6 overflow-hidden flex flex-col"
+        >
           <DialogHeader>
             <DialogTitle className="sr-only">
               {selectedProject?.title || "Project Details"}
@@ -213,6 +261,7 @@ export function ProjectGrid() {
             <TerminalWindow
               title={`${selectedProject.title.toLowerCase().replace(/\s+/g, '-')}-details.exe`}
               className="h-full flex flex-col"
+              onClose={handleCloseDialog}
             >
               <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8 lg:grid-cols-2 items-start lg:items-stretch max-h-[82vh] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded p-1">
                 {/* Project Title */}
@@ -257,14 +306,46 @@ export function ProjectGrid() {
 
                 {/* Project Details + Technologies */}
                 <div className="flex flex-col gap-4 md:gap-6 h-full">
-                  <div>
-                    <h3 className="text-base font-semibold text-terminal-green-bright mb-1 font-mono">
-                      Details
-                    </h3>
-                    <div className="subsection-hr mb-2" />
-                    <p className="text-terminal-green-medium text-xs md:text-sm leading-relaxed">
-                      {selectedProject.details}
-                    </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-3">
+                      <h3 className="text-base font-semibold text-terminal-green-bright font-mono">
+                        Summary
+                      </h3>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs md:text-sm font-mono border-terminal-green-dark/50 text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black"
+                        onClick={() => setDetailsExpanded(prev => !prev)}
+                      >
+                        {detailsExpanded ? "Show summary" : "Read more"}
+                      </Button>
+                    </div>
+                    <div className="subsection-hr" />
+                    {detailsExpanded ? (
+                      <div className="relative">
+                      <div
+                        ref={detailsScrollRef}
+                        className="text-terminal-green-medium text-xs md:text-sm leading-relaxed max-h-64 overflow-y-scroll pr-6 space-y-2 custom-scroll"
+                        style={{ scrollbarGutter: "stable", scrollbarWidth: "none", msOverflowStyle: "none" }}
+                      >
+                        {formatText(selectedProject.fullDetails || selectedProject.details).map((line, idx) => (
+                          <p key={idx}>{line}</p>
+                        ))}
+                      </div>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-2 bg-black border border-terminal-green-dark/50 rounded">
+                          <div
+                            className="absolute left-[2px] right-[2px] bg-[#39ff14] rounded border border-terminal-green-bright"
+                            style={{ height: `${thumbStyle.height}px`, top: `${thumbStyle.top}px` }}
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-terminal-green-medium text-xs md:text-sm leading-relaxed space-y-1.5">
+                        {formatText(selectedProject.summary || selectedProject.description).map((line, idx) => (
+                          <p key={idx}>{line}</p>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-2 flex-1">

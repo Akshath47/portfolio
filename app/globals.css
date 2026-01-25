@@ -203,6 +203,16 @@
   }
 }
 
+/* Hide native scrollbars for custom scroll containers */
+.custom-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.custom-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 /* Watermark hiding rules */
 @layer utilities {
   /* Hide any element containing branding */
@@ -443,16 +453,58 @@
   }
 
   .terminal-button {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 255, 65, 0.5);
-    background: rgba(0, 255, 65, 0.2);
+    border: 1.5px solid rgba(0, 255, 65, 0.55);
+    background: rgba(0, 255, 65, 0.25);
+    transition: transform 150ms ease, box-shadow 150ms ease, filter 120ms ease;
   }
 
-  .terminal-button:nth-child(1) { background: rgba(255, 0, 0, 0.3); border-color: rgba(255, 0, 0, 0.5); }
-  .terminal-button:nth-child(2) { background: rgba(255, 255, 0, 0.3); border-color: rgba(255, 255, 0, 0.5); }
-  .terminal-button:nth-child(3) { background: rgba(0, 255, 65, 0.3); border-color: rgba(0, 255, 65, 0.5); }
+  .terminal-button:nth-child(1) { background: rgba(120, 0, 0, 0.85); border-color: rgba(255, 50, 50, 0.85); }
+  .terminal-button:nth-child(2) { background: rgba(255, 255, 0, 0.35); border-color: rgba(255, 255, 0, 0.55); }
+  .terminal-button:nth-child(3) { background: rgba(0, 255, 65, 0.35); border-color: rgba(0, 255, 65, 0.6); }
+
+  .terminal-button-close {
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 10px rgba(255, 0, 0, 0.6);
+  }
+
+  .terminal-button-close:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 14px rgba(255, 0, 0, 0.75);
+  }
+
+  .terminal-button-close:hover::before,
+  .terminal-button-close:hover::after {
+    background: #ff2b2b;
+  }
+
+  .terminal-button-close:active {
+    transform: scale(0.96);
+    filter: brightness(0.9);
+  }
+
+  .terminal-button-close::before,
+  .terminal-button-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 2.25px;
+    background: rgba(150, 0, 0, 0.85);
+    border-radius: 999px;
+    transform-origin: center;
+  }
+
+  .terminal-button-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .terminal-button-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
 
   .terminal-title {
     font-family: var(--font-mono);

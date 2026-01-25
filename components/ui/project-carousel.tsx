@@ -257,7 +257,11 @@ export function ProjectCarousel() {
       <Dialog modal={false} open={selectedProject !== null} onOpenChange={(open) => {
         if (!open) handleCloseDialog();
       }}>
-        <DialogContent className="w-[96vw] max-w-screen-xl max-h-[95vh] overflow-y-auto bg-black/95 backdrop-blur-sm border-2 border-terminal-green-medium/40 rounded-lg [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded p-6 lg:p-8">
+        <DialogContent
+          showCloseButton={false}
+          onOpenAutoFocus={(event) => event.preventDefault()}
+          className="w-[96vw] max-w-screen-xl max-h-[95vh] overflow-y-auto bg-black/95 backdrop-blur-sm border-2 border-terminal-green-medium/40 rounded-lg [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded p-6 lg:p-8"
+        >
           <DialogHeader>
             <DialogTitle className="sr-only">
               {selectedProject?.title || "Project Details"}
