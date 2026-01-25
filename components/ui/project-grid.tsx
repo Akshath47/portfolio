@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { TerminalWindow } from "@/components/ui/terminal-window";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface Project {
   id: string;
@@ -13,10 +14,13 @@ interface Project {
   image: string;
   details: string;
   technologies: string[];
+  github: boolean;
+  codeUrl?: string;
+  projectType: string;
+  buttonText?: string;
 }
 
 const projects: Project[] = [
-  // 1) Deep Research
   {
     id: "1",
     title: "Deep Research Agent",
@@ -31,11 +35,14 @@ const projects: Project[] = [
       "Web Scraping",
       "Information Retrieval",
       "Prompt Engineering"
-    ]
+    ],
+    github: true,
+    codeUrl: "https://github.com/Akshath47/deep_research",
+    projectType: "Personal Project",
+    buttonText: "Code"
   },
-  // 2) PintOS
   {
-    id: "5",
+    id: "2",
     title: "PintOS - Operating System",
     description: "An educational operating system project implementing core kernel subsystems.",
     image: "/img_pintos.png",
@@ -49,11 +56,14 @@ const projects: Project[] = [
       "Virtual Memory",
       "Page Tables",
       "Concurrency & Synchronization"
-    ]
+    ],
+    github: false,
+    codeUrl: "",
+    projectType: "University Project",
+    buttonText: ""
   },
-  // 3) Stock Price Predictor
   {
-    id: "4",
+    id: "3",
     title: "Stock Price Predictor",
     description: "A machine learning project that predicts stock prices using historical data.",
     image: "/img_stock_predictor.png",
@@ -66,11 +76,14 @@ const projects: Project[] = [
       "Pandas",
       "NumPy",
       "Model Evaluation"
-    ]
+    ],
+    github: false,
+    codeUrl: "",
+    projectType: "Personal Project",
+    buttonText: ""
   },
-  // 4) Emulator
   {
-    id: "2",
+    id: "4",
     title: "Emulator & Assembler with Audio Synth Extension",
     description: "A low-level emulator and assembler built from scratch with a real-time audio extension.",
     image: "/img_audio_synth.png",
@@ -83,11 +96,14 @@ const projects: Project[] = [
       "Execution Pipelines",
       "SDL3",
       "Real-Time I/O"
-    ]
+    ],
+    github: true,
+    codeUrl: "https://github.com/Akshath47/C_project_extension_synth/",
+    projectType: "University Project",
+    buttonText: "Extension code"
   },
-  // 5) Summit
   {
-    id: "3",
+    id: "5",
     title: "Summit - AI companion for planning & focus",
     description: "An AI-powered companion designed to assist with planning and maintaining focus.",
     image: "/img_summit.png",
@@ -100,7 +116,11 @@ const projects: Project[] = [
       "Memory Persistence",
       "Agentic Workflows",
       "LLM-Based Systems"
-    ]
+    ],
+    github: true,
+    codeUrl: "https://github.com/Akshath47/summit",
+    projectType: "Personal Project",
+    buttonText: "Code"
   }
 ];
 
@@ -194,19 +214,49 @@ export function ProjectGrid() {
               title={`${selectedProject.title.toLowerCase().replace(/\s+/g, '-')}-details.exe`}
               className="h-full flex flex-col"
             >
-              <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8 lg:grid-cols-2 items-start max-h-[82vh] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded p-1">
+              <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8 lg:grid-cols-2 items-start lg:items-stretch max-h-[82vh] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded p-1">
                 {/* Project Title */}
                 <div className="border-b border-terminal-green-dark/30 pb-3 lg:col-span-2">
-                  <h2 className="text-xl md:text-2xl font-bold text-terminal-green-bright font-mono mb-1">
-                    {selectedProject.title}
-                  </h2>
-                  <p className="text-terminal-green-medium text-xs md:text-sm">
-                    {selectedProject.description}
-                  </p>
+                  <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-4">
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-bold text-terminal-green-bright font-mono mb-1">
+                        {selectedProject.title}
+                      </h2>
+                      <p className="text-terminal-green-medium text-xs md:text-sm">
+                        {selectedProject.description}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-end gap-2 md:gap-3 min-h-[38px]">
+                      {selectedProject.projectType.trim() ? (
+                        <span className="text-terminal-green-medium text-xs md:text-sm font-mono leading-none flex items-center">
+                          {selectedProject.projectType}
+                        </span>
+                      ) : null}
+                      {selectedProject.github ? (
+                        <Button
+                          asChild
+                          className="inline-flex items-center gap-2 bg-transparent text-terminal-green-bright border border-terminal-green-dark/60 hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-3 py-2 transition-colors duration-200"
+                        >
+                          <a href={selectedProject.codeUrl || "#"} target="_blank" rel="noopener noreferrer">
+                            <svg
+                              aria-hidden="true"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                              className="w-4 h-4"
+                              fill="currentColor"
+                            >
+                              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.262.793-.582 0-.287-.01-1.045-.016-2.052-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.746.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.304-5.467-1.332-5.467-5.931 0-1.31.468-2.382 1.236-3.222-.124-.303-.536-1.523.116-3.176 0 0 1.008-.323 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.289-1.553 3.295-1.23 3.295-1.23.654 1.653.242 2.873.118 3.176.77.84 1.235 1.912 1.235 3.222 0 4.61-2.807 5.624-5.48 5.921.43.371.823 1.103.823 2.222 0 1.604-.015 2.896-.015 3.289 0 .322.19.699.8.58C20.565 21.796 24 17.298 24 12 24 5.37 18.63 0 12 0Z" />
+                            </svg>
+                            <span>{selectedProject.buttonText || "code"}</span>
+                          </a>
+                        </Button>
+                      ) : null}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Project Details + Technologies */}
-                <div className="space-y-4 md:space-y-6">
+                <div className="flex flex-col gap-4 md:gap-6 h-full">
                   <div>
                     <h3 className="text-base font-semibold text-terminal-green-bright mb-1 font-mono">
                       Details
@@ -217,21 +267,23 @@ export function ProjectGrid() {
                     </p>
                   </div>
 
-                  <div>
+                  <div className="flex flex-col gap-2 flex-1">
                     <h3 className="text-base font-semibold text-terminal-green-bright mb-1 font-mono">
                       Technologies
                     </h3>
                     <div className="subsection-hr mb-2" />
-                    <div className="flex flex-wrap gap-1.5">
-                      {selectedProject.technologies.map((tech, index) => (
-                        <Badge
-                          key={index}
-                          variant="outline"
-                          className="text-xs px-2 py-1 border-terminal-green-dark/50 text-terminal-green-medium hover:bg-terminal-green-medium hover:text-black hover:border-terminal-green-medium transition-all duration-300 font-mono"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
+                    <div className="flex flex-col gap-2 flex-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedProject.technologies.map((tech, index) => (
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="text-xs px-2 py-1 border-terminal-green-dark/50 text-terminal-green-medium hover:bg-terminal-green-medium hover:text-black hover:border-terminal-green-medium transition-all duration-300 font-mono"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
