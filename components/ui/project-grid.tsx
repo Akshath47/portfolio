@@ -142,12 +142,19 @@ export function ProjectGrid() {
   const detailsScrollRef = useRef<HTMLDivElement | null>(null);
   const [thumbStyle, setThumbStyle] = useState({ height: 0, top: 0 });
 
+  const scrollPosRef = useRef(0);
+
   const handleCardClick = (project: Project) => {
+    scrollPosRef.current = window.scrollY;
     setSelectedProject(project);
   };
 
   const handleCloseDialog = () => {
+    const savedPos = scrollPosRef.current;
     setSelectedProject(null);
+    requestAnimationFrame(() => {
+      window.scrollTo(0, savedPos);
+    });
   };
 
   useEffect(() => {
@@ -244,12 +251,13 @@ export function ProjectGrid() {
       </div>
 
       {/* Project Details Dialog */}
-      <Dialog modal={false} open={selectedProject !== null} onOpenChange={(open) => {
+      <Dialog modal={true} open={selectedProject !== null} onOpenChange={(open) => {
         if (!open) handleCloseDialog();
       }}>
         <DialogContent
           showCloseButton={false}
-          onOpenAutoFocus={(event) => event.preventDefault()}
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          onCloseAutoFocus={(e) => e.preventDefault()}
           className="w-[96vw] max-w-screen-xl max-h-[95vh] bg-transparent border-none p-3 sm:p-4 md:p-5 lg:p-6 overflow-hidden flex flex-col"
         >
           <DialogHeader>

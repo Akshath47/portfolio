@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -86,10 +86,20 @@ const experiences: Experience[] = [
 
 function ExperienceCard({ experience }: { experience: Experience }) {
   const [isOpen, setIsOpen] = useState(false);
+  const scrollPosRef = useRef(0);
 
   const handleCardClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    scrollPosRef.current = window.scrollY;
     setIsOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    const savedPos = scrollPosRef.current;
+    setIsOpen(false);
+    requestAnimationFrame(() => {
+      window.scrollTo(0, savedPos);
+    });
   };
 
   return (
@@ -148,10 +158,11 @@ function ExperienceCard({ experience }: { experience: Experience }) {
         </TerminalWindow>
       </div>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen} modal={false}>
+      <Dialog open={isOpen} onOpenChange={handleCloseDialog} modal={true}>
         <DialogContent
           showCloseButton={false}
-          onOpenAutoFocus={(event) => event.preventDefault()}
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          onCloseAutoFocus={(e) => e.preventDefault()}
           className="max-w-[95vw] sm:max-w-[90vw] md:max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[85vh] bg-transparent border-none p-3 sm:p-4 md:p-5 lg:p-6 overflow-hidden flex flex-col"
         >
           <DialogHeader className="sr-only">
@@ -160,7 +171,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           <TerminalWindow
             title={`${experience.company.toLowerCase().replace(/\s+/g, '-')}-${experience.id}-details`}
             className="h-full flex flex-col"
-            onClose={() => setIsOpen(false)}
+            onClose={handleCloseDialog}
           >
             <div className="space-y-3 overflow-y-auto flex-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-800/50 [&::-webkit-scrollbar-thumb]:bg-terminal-green-dark [&::-webkit-scrollbar-thumb:hover]:bg-terminal-green-medium [&::-webkit-scrollbar-thumb]:rounded">
               {/* Experience Title */}

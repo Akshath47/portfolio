@@ -136,14 +136,13 @@ export default function Home() {
                       <div className="flex flex-wrap gap-1.5">
                         <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">Python</Badge>
                         <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">JavaScript</Badge>
-                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">Kotlin</Badge>
                         <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">Java</Badge>
                         <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">C</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">Backend Engineering</Badge>
+                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">Machine Learning</Badge>
                         <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">RAG</Badge>
                         <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">LangGraph</Badge>
                         <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">Agentic AI</Badge>
-                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">Speech AI</Badge>
-                        <Badge variant="outline" className="border-terminal-green-medium text-terminal-green-bright hover:bg-terminal-green-bright hover:text-black font-mono text-xs md:text-sm px-2 md:px-3 py-0.5 md:py-1">GPT-Realtime</Badge>
                       </div>
                     </div>
                   </div>
