@@ -17,6 +17,15 @@ interface JourneyEntry {
 
 const journeyEntries: JourneyEntry[] = [
   {
+    id: "internship-3",
+    title: "Incoming Technology Intern",
+    organization: "Man Group",
+    period: "March 2026",
+    description: "Received an offer to join Man Group as a Summer 2026 intern at their London office.",
+    // technologies: [],
+    type: "work"
+  },
+  {
     id: "internship-2",
     title: "Applied AI Engineering Intern",
     organization: "Valuelabs",

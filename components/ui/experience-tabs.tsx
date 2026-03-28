@@ -40,6 +40,15 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
+    id: "man-group",
+    title: "Incoming Technology Intern",
+    company: "Man Group",
+    period: "March 2026 – Present",
+    location: "London, UK",
+    description: "Accepted an offer to join Man Group at their London office as a technology intern for Summer 2026.",
+    technologies: []
+  },
+  {
     id: "valuelabs-ai",
     title: "Applied AI Engineering Intern",
     company: "ValueLabs",
@@ -60,9 +69,9 @@ const experiences: Experience[] = [
     id: "heavenly-joy",
     title: "Technical Consultant Volunteer",
     company: "Heavenly Joy Foundation",
-    period: "May 2025 – Present",
+    period: "May 2025 – Oct 2025",
     location: "Hyderabad, India",
-    description: "Volunteering to develop a responsive website and mobile app (iOS and Android) for a charity organization.",
+    description: "Volunteered to develop a responsive website and mobile app (iOS and Android) for a charity organization.",
     technologies: ["React", "iOS", "Android", "Responsive Design"]
   },
   {

@@ -133,7 +133,30 @@ const projects: Project[] = [
     codeUrl: "https://github.com/Akshath47/summit",
     projectType: "Personal Project",
     buttonText: "Code"
-  }
+  },
+  {
+    id: "6",
+    title: "WACC Compiler",
+    summary: "A full compiler for the WACC language, built from scratch in Scala. Targets AArch64 assembly and is extended with a CFG-based optimisation pipeline featuring constant propagation, dead code elimination, and graph-colouring register allocation.",
+    description: "A full-pipeline compiler targeting AArch64 assembly, extended with dataflow-driven optimisations and graph-colouring register allocation.",
+    image: "/img_wacc.png",
+    details: "A complete compiler for the WACC language implemented in Scala, covering all stages from source to executable AArch64 assembly.\n\nThe frontend handles lexing, parsing, and semantic analysis. It constructs a typed AST, enforces WACC's type system and scoping rules, and produces structured error messages for invalid programs.\n\nThe backend performs instruction selection and lowers the AST into AArch64 assembly, handling calling conventions, stack frame layout, and runtime support for WACC's built-in operations including heap allocation and I/O.\n\nAn optimisation extension implements a control-flow graph (CFG) based pipeline. Passes include control-flow simplification, constant propagation and folding, and dead code elimination — each run to fixpoint. Register allocation uses graph colouring with interference graph construction, multiple spill heuristics (highest degree, lowest cost, cost-benefit ratio, and loop-aware cost weighting), and a dedicated spill slot management strategy.\n\nThe project is structured with clear separation between frontend, backend, and optimisation concerns, with the allocator abstracted behind a shared output type to support both linear scan and graph-colouring strategies.",
+    technologies: [
+      "Scala",
+      "AArch64 Assembly",
+      "Compiler Design",
+      "Dataflow Analysis",
+      "Graph Colouring",
+      "Register Allocation",
+      "Control Flow Graphs",
+      "Dead Code Elimination",
+      "Constant Propagation"
+    ],
+    github: false,
+    codeUrl: "",
+    projectType: "University Project",
+    buttonText: ""
+  },
 ];
 
 export function ProjectGrid() {
