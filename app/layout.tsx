@@ -1,25 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Analytics } from '@vercel/analytics/next';
+import { JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "700", "800"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "Akshath Yennam",
-  description: "Portfolio website showcasing projects and experience",
+  title: "Akshath Yennam — Portfolio",
+  description:
+    "Akshath Yennam — CS student at Imperial College London. Backend engineering, systems programming, and applied AI.",
   icons: {
-    icon: '/favicon.ico',
-    apple: '/logo.png',
+    icon: "/favicon.ico",
+    apple: "/logo.png",
   },
 };
 
@@ -30,17 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+      <body className={`${jetbrainsMono.variable} antialiased`}>
+        {children}
         <Analytics />
       </body>
     </html>
